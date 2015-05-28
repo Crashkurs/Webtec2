@@ -15,7 +15,6 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
 import tu.dortmund.de.webtec2.entities.User;
-import tu.dortmund.de.webtec2.util.HibernateSessionProvider;
 
 public class HibernateRealm extends AuthorizingRealm{
 
@@ -23,9 +22,13 @@ public class HibernateRealm extends AuthorizingRealm{
 	
 	private Session session;
 	
-	public HibernateRealm(){
+	public static HibernateRealm build(Session session) {
+		return new HibernateRealm(session);
+	}
+	
+	public HibernateRealm(Session session){
 		super();
-		session = HibernateSessionProvider.getSession();
+		this.session = session;
 		logger.info("HibernateRealm constructed.");
 		this.setName("Webtec2 HibernateRealm");
 		this.setAuthenticationTokenClass(UsernamePasswordToken.class);

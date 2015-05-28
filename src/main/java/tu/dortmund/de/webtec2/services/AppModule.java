@@ -5,12 +5,11 @@ import java.io.IOException;
 import org.apache.shiro.realm.Realm;
 import org.apache.shiro.web.mgt.WebSecurityManager;
 import org.apache.tapestry5.SymbolConstants;
-import org.apache.tapestry5.hibernate.HibernateSessionManager;
-import org.apache.tapestry5.internal.hibernate.HibernateSessionManagerImpl;
 import org.apache.tapestry5.ioc.Configuration;
 import org.apache.tapestry5.ioc.MappedConfiguration;
 import org.apache.tapestry5.ioc.OrderedConfiguration;
 import org.apache.tapestry5.ioc.ServiceBinder;
+import org.apache.tapestry5.ioc.annotations.Autobuild;
 import org.apache.tapestry5.ioc.annotations.Contribute;
 import org.apache.tapestry5.ioc.annotations.Local;
 import org.apache.tapestry5.services.Request;
@@ -121,8 +120,9 @@ public class AppModule
         configuration.add("Timing", filter);
     }
     
+    /** Shiro Stuff */
     @Contribute(WebSecurityManager.class)
-    public static void addRealms(Configuration<Realm> configuration) {
-    	configuration.add(new HibernateRealm());
+    public static void addRealms(Configuration<Realm> configuration, @Autobuild HibernateRealm realm) {
+    	configuration.add(realm);
     }
 }
