@@ -73,6 +73,19 @@ of testing facilities designed for use with TestNG (http://testng.org/), so it's
             <version>${tapestry-release-version}</version>
             <scope>provided</scope>
         </dependency>
+        
+        <!--  Provide dependency for tapestry hibernate and the hsql database -->
+        <dependency>
+        	<groupId>org.apache.tapestry</groupId>
+        	<artifactId>tapestry-hibernate</artifactId>
+        	<version>${tapestry-release-version}</version>
+    	</dependency>
+ 
+    	<dependency>
+        	<groupId>org.hsqldb</groupId>
+        	<artifactId>hsqldb</artifactId>
+        	<version>${hsqldb-release-version}</version>
+    	</dependency>
 
     </dependencies>
     <build>
@@ -140,5 +153,6 @@ of testing facilities designed for use with TestNG (http://testng.org/), so it's
         <servlet-api-release-version>2.5</servlet-api-release-version>
         <testng-release-version>5.14.10</testng-release-version>
         <easymock-release-version>3.0</easymock-release-version>
+        <hsqldb-release-version>2.3.2</hsqldb-release-version>
     </properties>
 </project>
