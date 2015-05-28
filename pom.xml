@@ -80,12 +80,29 @@ of testing facilities designed for use with TestNG (http://testng.org/), so it's
         	<artifactId>tapestry-hibernate</artifactId>
         	<version>${tapestry-release-version}</version>
     	</dependency>
+    	<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>${hibernate-release-version}</version>
+		</dependency>
  
     	<dependency>
         	<groupId>org.hsqldb</groupId>
         	<artifactId>hsqldb</artifactId>
         	<version>${hsqldb-release-version}</version>
     	</dependency>
+    	
+    	<!-- Provide dependency for shiro/user authentication -->
+    	<dependency>
+	 		<groupId>org.apache.shiro</groupId>
+	  		<artifactId>shiro-core</artifactId>
+	 		<version>1.2.3</version>
+		</dependency>
+		<dependency>
+  			<groupId>org.tynamo</groupId>
+  			<artifactId>tapestry-security</artifactId>
+  			<version>0.6.2</version>
+		</dependency>
 
     </dependencies>
     <build>
@@ -154,5 +171,6 @@ of testing facilities designed for use with TestNG (http://testng.org/), so it's
         <testng-release-version>5.14.10</testng-release-version>
         <easymock-release-version>3.0</easymock-release-version>
         <hsqldb-release-version>2.3.2</hsqldb-release-version>
+        <hibernate-release-version>4.3.10.Final</hibernate-release-version>
     </properties>
 </project>
