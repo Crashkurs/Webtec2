@@ -32,6 +32,7 @@ public class HibernateRealm extends AuthorizingRealm{
 		logger.info("HibernateRealm constructed.");
 		this.setName("Webtec2 HibernateRealm");
 		this.setAuthenticationTokenClass(UsernamePasswordToken.class);
+		
 	}
 	
 	@Override
@@ -51,22 +52,20 @@ public class HibernateRealm extends AuthorizingRealm{
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(
 			AuthenticationToken token) throws AuthenticationException {
-		logger.info("doGetAuthenticationInfo() called.");
-		
+
 		UsernamePasswordToken upToken = (UsernamePasswordToken) token;
 
 		String userName = upToken.getUsername();
-		
 		User user = findUserByName(userName);
 		
 		if (user == null) {
-			
 			throw new AuthenticationException("User " + userName + " not found.");
 		}
 		return new SimpleAuthenticationInfo(user, user.getPassword(), getName());
 	}
 
 	private User findUserByName(String userName){
+
 		Criteria criteria = session.createCriteria(User.class);
 		criteria = criteria.add(Restrictions.eq("name", userName));
 		User user = (User) criteria.uniqueResult();
