@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 import org.apache.tapestry5.beaneditor.Validate;
 
@@ -15,6 +16,7 @@ public class Notification {
 	private Long id;
 
 	@Validate("required")
+	@OneToOne
 	private User fromUser;
 	
 	@Validate("required")

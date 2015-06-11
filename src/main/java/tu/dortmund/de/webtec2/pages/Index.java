@@ -1,11 +1,17 @@
 package tu.dortmund.de.webtec2.pages;
 
 import java.util.Date;
-import org.apache.tapestry5.annotations.*;
-import org.apache.tapestry5.ioc.annotations.*;
-import org.apache.tapestry5.corelib.components.*;
+
 import org.apache.tapestry5.SymbolConstants;
 import org.apache.tapestry5.alerts.AlertManager;
+import org.apache.tapestry5.annotations.InjectComponent;
+import org.apache.tapestry5.annotations.Persist;
+import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.corelib.components.Zone;
+import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.ioc.annotations.Symbol;
+
+import tu.dortmund.de.webtec2.services.DemoService;
 
 /**
  * Start page of application webtec2.
@@ -26,6 +32,9 @@ public class Index
 
     @Inject
     private AlertManager alertManager;
+    
+    @Inject
+    DemoService demoService;
 
     public Date getCurrentTime()
     {
@@ -44,6 +53,8 @@ public class Index
         clickCount++;
 
         alertManager.info("Increment (via Ajax) clicked");
+        
+        demoService.doDemo();
 
         return zone;
     }

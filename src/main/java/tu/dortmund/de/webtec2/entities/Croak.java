@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 import org.apache.tapestry5.beaneditor.Validate;
 
@@ -18,6 +19,7 @@ public class Croak {
 	private String text;
 	  
 	@Validate("required")
+	@OneToOne
 	private User user;
 	  
 	@Validate("required")
