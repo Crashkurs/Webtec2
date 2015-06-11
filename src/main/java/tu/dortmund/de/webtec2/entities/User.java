@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.beaneditor.Validate;
 
 @Entity
@@ -17,18 +18,23 @@ public class User {
 
 	@Id
 	@Validate("required")
+	@Property
 	private String name;
 	
 	@Validate("required")
+	@Property
 	private String password;
 	
 	@OneToMany
+	@Property
 	private List<User> following;
 	
 	@OneToMany
+	@Property
 	private List<User> followers;
 	
 	@ElementCollection
+	@Property
 	private Collection<String> permissions;
 	
 	//private List<Notification> notifications;
