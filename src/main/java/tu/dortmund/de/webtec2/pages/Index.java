@@ -11,8 +11,6 @@ import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.ioc.annotations.Symbol;
 
-import tu.dortmund.de.webtec2.services.DemoService;
-
 /**
  * Start page of application webtec2.
  */
@@ -32,9 +30,6 @@ public class Index
 
     @Inject
     private AlertManager alertManager;
-    
-    @Inject
-    DemoService demoService;
 
     public Date getCurrentTime()
     {
@@ -53,8 +48,6 @@ public class Index
         clickCount++;
 
         alertManager.info("Increment (via Ajax) clicked");
-        
-        demoService.doDemo();
 
         return zone;
     }
