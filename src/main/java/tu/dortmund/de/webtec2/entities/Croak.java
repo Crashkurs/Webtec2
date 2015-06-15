@@ -23,7 +23,11 @@ public class Croak {
 	@OneToOne
 	@Property
 	private User user;
-	
+
+	public void setText(String text) {
+		this.text = text;
+	}
+
 	@Validate("minlength=1")
 	@Property
 	private String text;
@@ -31,6 +35,26 @@ public class Croak {
 	@Validate("required")
 	@Property
 	private Long timestamp;
+	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+	
+	public String getText() {
+		return text;
+	}
 	
 	public Croak(User user, String text){
 		this.user = Objects.requireNonNull(user);
