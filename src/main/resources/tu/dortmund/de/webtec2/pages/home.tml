@@ -1,0 +1,16 @@
+<html t:type="layout" title="home"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+
+    <p>croak croak croak ... </p>
+	
+	<p>deine Freunde haben folgendes gecroakt:</p>
+	
+	<ul>
+		<t:loop source="croaks" value="croak">
+		<li>
+			${croak.user.name} croakt: ${croak.text}
+		</li>
+		</t:loop>
+	</ul>
+</html>
