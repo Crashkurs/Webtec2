@@ -9,6 +9,8 @@
     <p>The current time is: <strong>${currentTime}</strong></p>
     
     <p>
+    Name: admin <br/>
+    Pw: admin <br/>
     <t:security.guest>
     	<t:security.loginform>
     	</t:security.loginform>
