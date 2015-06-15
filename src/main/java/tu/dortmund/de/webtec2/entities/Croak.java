@@ -32,8 +32,39 @@ public class Croak {
 	@Property
 	private Long timestamp;
 	
+	/**
+	 * Default constructor for hibernate
+	 */
+	public Croak() {
+		
+	}
+	
 	public Croak(User user, String text){
 		this.user = Objects.requireNonNull(user);
 		this.text = Objects.requireNonNull(text);
+	}
+	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+	
+	public String getText() {
+		return text;
+	}
+	
+	public void setText(String text) {
+		this.text = text;
 	}
 }

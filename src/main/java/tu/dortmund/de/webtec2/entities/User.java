@@ -12,6 +12,8 @@ import javax.persistence.OneToMany;
 
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.beaneditor.Validate;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Entity
 public class User {
@@ -27,10 +29,12 @@ public class User {
 	
 	@OneToMany
 	@Property
+	@Fetch(value = FetchMode.JOIN)
 	private List<User> following;
 	
 	@OneToMany
 	@Property
+	@Fetch(value = FetchMode.JOIN)
 	private List<User> followers;
 	
 	@ElementCollection
@@ -38,6 +42,13 @@ public class User {
 	private Collection<String> permissions;
 	
 	//private List<Notification> notifications;
+	
+	/**
+	 * Default constructor for hibernate
+	 */
+	public User() {
+		
+	}
 	
 	public User(String name, String password) {
 		this.name = Objects.requireNonNull(name);

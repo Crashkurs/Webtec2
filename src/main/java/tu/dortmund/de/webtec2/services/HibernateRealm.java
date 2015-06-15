@@ -10,8 +10,8 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.tapestry5.hibernate.HibernateSessionManager;
 import org.hibernate.Criteria;
-import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
 import tu.dortmund.de.webtec2.entities.User;
@@ -20,15 +20,15 @@ public class HibernateRealm extends AuthorizingRealm{
 
 	private static Logger logger = Logger.getLogger(HibernateRealm.class);
 	
-	private Session session;
+	private HibernateSessionManager hibernateSessionManager;
 	
-	public static HibernateRealm build(Session session) {
-		return new HibernateRealm(session);
+	public static HibernateRealm build(HibernateSessionManager hibernateSessionManager) {
+		return new HibernateRealm(hibernateSessionManager);
 	}
 	
-	public HibernateRealm(Session session){
+	public HibernateRealm(HibernateSessionManager hibernateSessionManager){
 		super();
-		this.session = session;
+		this.hibernateSessionManager = hibernateSessionManager;
 		logger.info("HibernateRealm constructed.");
 		this.setName("Webtec2 HibernateRealm");
 		this.setAuthenticationTokenClass(UsernamePasswordToken.class);
@@ -56,19 +56,22 @@ public class HibernateRealm extends AuthorizingRealm{
 		UsernamePasswordToken upToken = (UsernamePasswordToken) token;
 
 		String userName = upToken.getUsername();
+		logger.warn("searching user");
 		User user = findUserByName(userName);
 		
 		if (user == null) {
 			throw new AuthenticationException("User " + userName + " not found.");
 		}
+		logger.warn("Found user");
 		return new SimpleAuthenticationInfo(user, user.getPassword(), getName());
 	}
 
 	private User findUserByName(String userName){
 
-		Criteria criteria = session.createCriteria(User.class);
+		Criteria criteria = hibernateSessionManager.getSession().createCriteria(User.class);
 		criteria = criteria.add(Restrictions.eq("name", userName));
-		User user = (User) criteria.uniqueResult();
+		User user =  (User) criteria.uniqueResult();
+		//System.out.println("Found user for name " + userName + ": " + user);
 		return user;
 	}
 	

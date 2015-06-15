@@ -8,8 +8,13 @@ import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.corelib.components.Zone;
+import org.apache.tapestry5.hibernate.HibernateSessionManager;
+import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.ioc.annotations.Symbol;
+
+import tu.dortmund.de.webtec2.services.GlobalCtrl;
+import tu.dortmund.de.webtec2.services.TestService;
 
 /**
  * Start page of application webtec2.
@@ -30,6 +35,15 @@ public class Index
 
     @Inject
     private AlertManager alertManager;
+    
+    @Inject
+    GlobalCtrl globalController;
+    
+    @Inject
+    HibernateSessionManager hibernateSessionManager;
+    
+    @Inject
+    TestService test;
 
     public Date getCurrentTime()
     {
@@ -39,10 +53,15 @@ public class Index
     void onActionFromIncrement()
     {
         alertManager.info("Increment clicked");
+        
+        alertManager.info(globalController.loadCroaks().toString());
+        alertManager.info(globalController.getNotifications().toString());
+        alertManager.info(globalController.loadFollower().toString());
 
         clickCount++;
     }
 
+    @CommitAfter
     Object onActionFromIncrementAjax()
     {
         clickCount++;

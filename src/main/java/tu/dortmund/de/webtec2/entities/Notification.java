@@ -28,6 +28,13 @@ public class Notification {
 	@Property
 	private Long timestamp;
 	
+	/**
+	 * Default constructor for hibernate
+	 */
+	public Notification() {
+
+	}
+	
 	public Notification(User fromUser, Long timestamp){
 		this.fromUser = Objects.requireNonNull(fromUser);
 		this.timestamp = Objects.requireNonNull(timestamp);

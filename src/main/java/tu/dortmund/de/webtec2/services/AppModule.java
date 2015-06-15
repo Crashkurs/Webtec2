@@ -27,6 +27,9 @@ public class AppModule
     public static void bind(ServiceBinder binder)
     {
         // binder.bind(MyServiceInterface.class, MyServiceImpl.class);
+    	binder.bind(GlobalCtrl.class);
+    	binder.bind(RegisterCtrl.class);
+    	binder.bind(TestService.class).eagerLoad();
 
         // Make bind() calls on the binder object to define most IoC services.
         // Use service builder methods (example below) when the implementation
