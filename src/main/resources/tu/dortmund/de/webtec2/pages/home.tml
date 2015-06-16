@@ -2,9 +2,22 @@
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
       xmlns:p="tapestry:parameter">
 
+
     <p>croak croak croak ... </p>
 	
 	<p>deine Freunde haben folgendes gecroakt:</p>
+	
+	<p><t:actionlink t:id="refresh">Aktualisieren</t:actionlink></p>
+	<p><t:actionlink t:id="myprofile">Mein Profil</t:actionlink></p>
+	
+	<t:form>
+	
+	<t:errors/>
+            <p>
+            	<t:textField t:id="inputfield" value="croakInput" size="140"/>
+                <t:submit t:id="post" value="croaken" context="croakInput" />
+            </p>
+	</t:form>
 	
 	<ul>
 		<t:loop source="croaks" value="croak">

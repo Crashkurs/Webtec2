@@ -134,7 +134,7 @@ public class GlobalCtrl {
 		return result;
 	}
 
-	private User getCurrentUser() {
+	public User getCurrentUser() {
 		User currentUser = (User) SecurityUtils.getSubject().getPrincipal();
 		if (currentUser == null) {
 			throw new AuthenticationException("User is not logged in.");
