@@ -1,0 +1,23 @@
+<html t:type="layout" title="Register"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+      <t:form t:id="registerUser">
+      	<p>
+      		<t:label for="username"/>
+      		<t:textfield t:id="username" t:value="username" />
+      	</p>
+      	<p>
+      		<t:label for="password">
+      			Password
+      		</t:label>
+      		<t:passwordfield t:id="password" t:value="password" />
+      	</p>
+      	<p>
+      		<t:label for="password2">
+      			Password
+      		</t:label>
+      		<t:passwordfield t:id="password2" t:value="password2" />
+      	</p>
+      	<t:submit t:id="register"/>
+      </t:form>
+</html>

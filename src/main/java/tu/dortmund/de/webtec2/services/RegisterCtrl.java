@@ -21,9 +21,10 @@ public class RegisterCtrl {
 	 * @param userName the name of the new user
 	 * @param pw the password the new user should have
 	 * @param pwRepeat the repeated password
+	 * @return the newly created user
 	 * @throws IllegalArgumentException if the passwords do not match or a user with the given name already exists
 	 */
-	public void createNewUser(String userName, String pw, String pwRepeat) throws IllegalArgumentException {
+	public User createNewUser(String userName, String pw, String pwRepeat) throws IllegalArgumentException {
 		Session session = hibernateSessionManager.getSession();
 		if(!pw.equals(pwRepeat)) {
 			throw new IllegalArgumentException("passwords do not match");
@@ -40,6 +41,7 @@ public class RegisterCtrl {
 		User newUser = new User(userName, pw);
 		session.persist(newUser);
 		hibernateSessionManager.commit();
+		return newUser;
 	}
 	
 	/**

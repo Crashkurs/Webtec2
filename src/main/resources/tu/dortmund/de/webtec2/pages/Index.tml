@@ -15,10 +15,9 @@
     	<t:security.loginform>
     	</t:security.loginform>
     	<p:else>
-    		Eingeloggt.
+			Eingeloggt.
     	</p:else>
     </t:security.guest></p>
-
     <!-- A Zone is a component that can be updated in place, triggered by other components. -->
     <t:zone t:id="zone">
         <p>
