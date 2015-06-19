@@ -3,13 +3,20 @@
       xmlns:p="tapestry:parameter">
 
 
-    <p>croak croak croak ... </p>
+    <p>die hast folgende neue Meldungen:</p>
+	
+	
 	
 	<p>deine Freunde haben folgendes gecroakt:</p>
-	
-	<p><t:actionlink t:id="refresh">Aktualisieren</t:actionlink></p>
-	<p><t:actionlink t:id="myprofile">Mein Profil</t:actionlink></p>
-	
+
+	<ul>
+		<t:loop source="notes" value="note">
+		<li>
+			${note.fromuser.name} empfiehlt dir, ihm zu folgen!
+		</li>
+		</t:loop>
+	</ul>
+
 	<t:form>
 	
 	<t:errors/>
@@ -18,6 +25,9 @@
                 <t:submit t:id="post" value="croaken" context="croakInput" />
             </p>
 	</t:form>
+	
+	<p><t:actionlink t:id="refresh">Aktualisieren</t:actionlink></p>
+	<p><t:actionlink t:id="myprofile">Mein Profil</t:actionlink></p>
 	
 	<ul>
 		<t:loop source="croaks" value="croak">

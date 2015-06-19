@@ -34,9 +34,26 @@ public class Notification {
 	public Notification() {
 
 	}
-	
 	public Notification(User fromUser, Long timestamp){
 		this.fromUser = Objects.requireNonNull(fromUser);
 		this.timestamp = Objects.requireNonNull(timestamp);
+	}
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public User getFromUser() {
+		return fromUser;
+	}
+	public void setFromUser(User fromUser) {
+		this.fromUser = fromUser;
+	}
+	public Long getTimestamp() {
+		return timestamp;
+	}
+	public void setTimestamp(Long timestamp) {
+		this.timestamp = timestamp;
 	}
 }
