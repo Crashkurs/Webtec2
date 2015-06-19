@@ -11,5 +11,12 @@
         <property name="hbm2ddl.auto">update</property>
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.format_sql">true</property>
+        
+        <!-- Scan for annotated classes -->
+    	<property name="hibernate.archive.autodetection">class</property>
+      
+        <!-- Drop and re-create the database schema on startup -->
+        <property name="hbm2ddl.auto">update</property>
+        <!-- <property name="hbm2ddl.auto">create-drop</property> -->
     </session-factory>
 </hibernate-configuration>

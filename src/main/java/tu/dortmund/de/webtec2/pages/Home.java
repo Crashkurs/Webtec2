@@ -32,7 +32,7 @@ public class Home {
 	@Inject
 	private HomeCtrl homectrl;
 
-	public void onActionFromRefresh() {
+	public void onActivate() {
 		try {
 			croaks = homectrl.loadOnwCroaks();
 			notes = homectrl.loadNotifications();

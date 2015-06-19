@@ -2,6 +2,8 @@ package tu.dortmund.de.webtec2.pages;
 
 import java.util.Date;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.tapestry5.SymbolConstants;
 import org.apache.tapestry5.alerts.AlertManager;
 import org.apache.tapestry5.annotations.InjectComponent;
@@ -59,6 +61,12 @@ public class Index
         alertManager.info(globalController.loadFollower().toString());
 
         clickCount++;
+    }
+    
+    @RequiresAuthentication
+    void onActionFromLogout()
+    {
+    	SecurityUtils.getSubject().logout();
     }
 
     @CommitAfter

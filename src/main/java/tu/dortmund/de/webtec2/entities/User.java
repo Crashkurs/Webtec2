@@ -5,12 +5,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 
-import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.beaneditor.Validate;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -20,25 +20,22 @@ public class User {
 
 	@Id
 	@Validate("required")
-	@Property
 	private String name;
 	
 	@Validate("required")
-	@Property
 	private String password;
 	
-	@OneToMany
-	@Property
+	@ManyToMany
 	@Fetch(value = FetchMode.JOIN)
+	@Column(name = "Following")
 	private List<User> following;
 	
-	@OneToMany
-	@Property
+	@ManyToMany(mappedBy = "following")
 	@Fetch(value = FetchMode.JOIN)
+	@Column(name = "Followers")
 	private List<User> followers;
 	
 	@ElementCollection
-	@Property
 	private Collection<String> permissions;
 	
 	//private List<Notification> notifications;
