@@ -40,7 +40,6 @@ public class RegisterCtrl {
 		
 		User newUser = new User(userName, pw);
 		session.persist(newUser);
-		hibernateSessionManager.commit();
 		return newUser;
 	}
 	

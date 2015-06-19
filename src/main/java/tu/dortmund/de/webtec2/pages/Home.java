@@ -13,6 +13,9 @@ public class Home {
 
 	@Property
 	private LinkedList<Croak> croaks;
+	
+	@Property
+	private LinkedList<Croak> followedCroaks;
 
 	@Property
 	private LinkedList<Notification> notes;
@@ -22,6 +25,9 @@ public class Home {
 	
 	@Property
 	private Croak croak;
+	
+	@Property
+	private Croak followerCroak;
 
 	@Property
 	private String croakInput;
@@ -36,6 +42,7 @@ public class Home {
 		try {
 			croaks = homectrl.loadOnwCroaks();
 			notes = homectrl.loadNotifications();
+			followedCroaks = homectrl.loadFollowedCroaks();
 		} catch (NullPointerException ex) {
 			ex.printStackTrace();
 		}

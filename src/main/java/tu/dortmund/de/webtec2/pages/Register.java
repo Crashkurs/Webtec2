@@ -5,6 +5,7 @@ import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.beaneditor.Validate;
 import org.apache.tapestry5.corelib.components.Zone;
+import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
 import tu.dortmund.de.webtec2.services.RegisterCtrl;
@@ -31,6 +32,7 @@ public class Register {
     @InjectComponent
     Zone registerForm;
 	
+    @CommitAfter
 	Object onActionFromRegisterUser() {
 		try{
 			registerCtrl.createNewUser(userName, password, password2);

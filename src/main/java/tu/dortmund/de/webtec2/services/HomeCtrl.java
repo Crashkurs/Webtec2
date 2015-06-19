@@ -1,7 +1,6 @@
 package tu.dortmund.de.webtec2.services;
 
 import java.util.LinkedList;
-import java.util.List;
 
 import org.apache.tapestry5.hibernate.HibernateSessionManager;
 import org.hibernate.Session;
@@ -47,9 +46,9 @@ public class HomeCtrl {
 		user.addAll(globalctrl.loadFollower());
 		try {
 			for (int i = 0; i < user.size(); i++) 
-				result.addAll(globalctrl.loadCroaks(user.get(i).getName()));		
+				result.addAll(globalctrl.loadCroaks(user.get(i)));		
 		} catch (Exception ex) {
-			
+			ex.printStackTrace();
 		}
 		
 		return result;

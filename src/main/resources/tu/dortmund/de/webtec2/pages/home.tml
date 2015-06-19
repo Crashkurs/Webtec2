@@ -8,7 +8,13 @@
 	
 	
 	<p>deine Freunde haben folgendes gecroakt:</p>
-
+	<ul>
+		<t:loop source="followedCroaks" value="followerCroak">
+		<li>
+			${followerCroak.user.name} croakt: ${followerCroak.text}
+		</li>
+		</t:loop>
+	</ul>
 	<ul>
 		<t:loop source="notes" value="note">
 		<li>
