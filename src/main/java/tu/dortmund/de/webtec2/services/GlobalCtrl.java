@@ -22,6 +22,16 @@ public class GlobalCtrl {
 	public GlobalCtrl(HibernateSessionManager hibernateSessionManager) {
 		this.hibernateSessionManager = hibernateSessionManager;
 	}
+	
+	/**
+	 * The current user is logged out.
+	 * 
+	 * @throws AuthenticationException if this functions gets called while no user is logged in.
+	 */
+	@RequiresAuthentication
+	public void logout() {
+		SecurityUtils.getSubject().logout();
+	}
 
 	/**
 	 * Retrieves the notifications for the current user.
