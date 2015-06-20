@@ -47,7 +47,7 @@ public class GlobalCtrl {
 		Criteria criteria = session.createCriteria(Notification.class);
 
 		// Add restriction
-		criteria.add(Restrictions.eq("fromUser",
+		criteria.add(Restrictions.eq("toUser",
 				currentUser));
 
 		// Execute the query and return it

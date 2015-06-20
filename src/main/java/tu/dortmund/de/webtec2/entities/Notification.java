@@ -8,7 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
-import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.beaneditor.Validate;
 
 @Entity
@@ -16,16 +15,17 @@ public class Notification {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Property
 	private Long id;
 
 	@Validate("required")
 	@OneToOne
-	@Property
 	private User fromUser;
 	
 	@Validate("required")
-	@Property
+	@OneToOne
+	private User toUser;
+	
+	@Validate("required")
 	private Long timestamp;
 	
 	/**
@@ -34,8 +34,9 @@ public class Notification {
 	public Notification() {
 
 	}
-	public Notification(User fromUser, Long timestamp){
+	public Notification(User fromUser, User toUser, Long timestamp){
 		this.fromUser = Objects.requireNonNull(fromUser);
+		this.toUser = toUser;
 		this.timestamp = Objects.requireNonNull(timestamp);
 	}
 	public Long getId() {
@@ -55,5 +56,11 @@ public class Notification {
 	}
 	public void setTimestamp(Long timestamp) {
 		this.timestamp = timestamp;
+	}
+	public User getToUser() {
+		return toUser;
+	}
+	public void setToUser(User toUser) {
+		this.toUser = toUser;
 	}
 }
