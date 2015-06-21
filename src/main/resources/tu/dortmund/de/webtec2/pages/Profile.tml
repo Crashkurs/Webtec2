@@ -1,0 +1,29 @@
+<html t:type="layout" title="webtec2 Profile"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+      
+      <p>Profil von ${name}</p>
+      
+      <t:zone t:id="profileCroaks">
+      	<p>Croaks</p>
+      	<ul>
+	      	<t:loop source="croaks" value="croak">
+				<li>
+					${croak.text}
+				</li>
+			</t:loop>
+		</ul>
+      </t:zone>
+      
+      <t:zone t:id="profileFollowers">
+      	<p>Leute die ${name} folgen:</p>
+      	<ul>
+      		<t:loop source="followers" value="follower">
+	      		<li>
+	      			${follower.name}
+	      		</li>
+	      	</t:loop>
+      	</ul>
+      </t:zone>
+      
+</html>

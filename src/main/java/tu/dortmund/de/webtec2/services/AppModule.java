@@ -30,6 +30,7 @@ public class AppModule
     	binder.bind(GlobalCtrl.class);
     	binder.bind(RegisterCtrl.class);
     	binder.bind(HomeCtrl.class);
+    	binder.bind(ProfileCtrl.class);
     	binder.bind(TestService.class).eagerLoad();
 
         // Make bind() calls on the binder object to define most IoC services.

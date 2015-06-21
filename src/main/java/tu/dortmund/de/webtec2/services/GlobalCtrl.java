@@ -153,7 +153,7 @@ public class GlobalCtrl {
 		return currentUser;
 	}
 
-	private User findUserByName(String userName) {
+	public User findUserByName(String userName) {
 		Session session = this.hibernateSessionManager.getSession();
 		
 		// Create the query
