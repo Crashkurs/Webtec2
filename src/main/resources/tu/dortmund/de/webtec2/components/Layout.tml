@@ -32,6 +32,11 @@ Description: A Web 2.0 design with fluid width suitable for blogs and small webs
                     <li t:type="loop" source="pageNames" value="pageName" class="prop:classForPageName">
                         <t:pagelink page="prop:pageName">${pageName}</t:pagelink>
                     </li>
+                    <t:security.authenticated>
+	                    <li>
+	                    	<t:pagelink page="Profile" context="user.name">Profile</t:pagelink>
+	                   	</li>
+	                </t:security.authenticated>
                 </ul>
             </div>
         </div>

@@ -1,6 +1,6 @@
 package tu.dortmund.de.webtec2.pages;
 
-import java.util.LinkedList;
+import java.util.List;
 
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -15,10 +15,10 @@ public class Profile {
 	private String name;
 	
 	@Property
-	private LinkedList<Croak> croaks;
+	private List<Croak> croaks;
 	
 	@Property
-	private LinkedList<User> followers;
+	private List<User> followers;
 	
 	@Property
 	private Croak croak;
@@ -29,12 +29,12 @@ public class Profile {
 	@Inject
 	private ProfileCtrl profileCtrl;
 
-	public void onActivate(String userName) {
+	void onActivate(String userName) {
 		try {
-			User user = profileCtrl.loadUser(userName);
-			name = userName;
-			croaks = (LinkedList<Croak>) profileCtrl.loadCroaks(user);
-			followers = (LinkedList<User>) profileCtrl.loadFollowers(user);
+			this.name = userName;
+			User user = profileCtrl.loadUser(name);
+			croaks = profileCtrl.loadCroaks(user);
+			followers = profileCtrl.loadFollowers(user);
 			
 		} catch (NullPointerException ex) {
 			ex.printStackTrace();

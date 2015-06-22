@@ -10,6 +10,9 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.ioc.annotations.Symbol;
 
+import tu.dortmund.de.webtec2.entities.User;
+import tu.dortmund.de.webtec2.services.GlobalCtrl;
+
 /**
  * Layout component for pages of application webtec2.
  */
@@ -41,7 +44,12 @@ public class Layout
     @Inject
     @Symbol(SymbolConstants.APPLICATION_VERSION)
     private String appVersion;
-
+    
+    @Inject
+    GlobalCtrl globalCtrl;
+    
+    @Property
+    User user;
 
     public String getClassForPageName()
     {
@@ -53,5 +61,13 @@ public class Layout
     public String[] getPageNames()
     {
         return new String[]{"Index", "About", "Contact", "Home", "Register"};
+    }
+    
+    public void setupRender() {
+    	try{
+    		this.user = globalCtrl.getCurrentUser();
+    	}catch(Exception e) {
+    		
+    	}
     }
 }

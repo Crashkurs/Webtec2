@@ -160,7 +160,7 @@ public class GlobalCtrl {
 		Criteria criteria = session.createCriteria(User.class);
 
 		// Sets the WHERE clause in the query
-		criteria.add(Restrictions.eq("user", userName));
+		criteria.add(Restrictions.eq("name", userName));
 
 		// Execute the query and return it
 		User result = (User) criteria.uniqueResult();
