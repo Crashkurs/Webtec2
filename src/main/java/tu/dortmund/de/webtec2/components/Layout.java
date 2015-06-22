@@ -1,5 +1,6 @@
 package tu.dortmund.de.webtec2.components;
 
+import org.apache.shiro.SecurityUtils;
 import org.apache.tapestry5.BindingConstants;
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.ComponentResources;
@@ -64,10 +65,7 @@ public class Layout
     }
     
     public void setupRender() {
-    	try{
+    	if(SecurityUtils.getSubject().isAuthenticated())
     		this.user = globalCtrl.getCurrentUser();
-    	}catch(Exception e) {
-    		
-    	}
     }
 }
