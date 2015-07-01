@@ -40,15 +40,25 @@ public class GlobalCtrl {
 	 */
 	@RequiresAuthentication
 	public List<Notification> getNotifications() {
+		return getNotifications(getCurrentUser());
+	}
+	
+	/**
+	 * Retrieves the notifications for the given user.
+	 * 
+	 * @param user
+	 * 		      the given user
+	 * @return the notifications for the current user
+	 */
+	public List<Notification> getNotifications(User user) {
 		Session session = this.hibernateSessionManager.getSession();
-		User currentUser = getCurrentUser();
 
 		// Create the query
 		Criteria criteria = session.createCriteria(Notification.class);
 
 		// Add restriction
 		criteria.add(Restrictions.eq("toUser",
-				currentUser));
+				user));
 
 		// Execute the query and return it
 		List<Notification> result = criteria.list();

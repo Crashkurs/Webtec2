@@ -1,5 +1,7 @@
 package tu.dortmund.de.webtec2.entities;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Objects;
 
 import javax.persistence.Entity;
@@ -24,13 +26,13 @@ public class Croak {
 	@Property
 	private User user;
 	
-	@Validate("minlength=1")
+	@Validate("minlength=1,maxlength=256")
 	@Property
 	private String text;
 
 	@Validate("required")
 	@Property
-	private Long timestamp;
+	private Date time;
 	
 	/**
 	 * Default constructor for hibernate
@@ -39,9 +41,10 @@ public class Croak {
 		
 	}
 	
-	public Croak(User user, String text){
+	public Croak(User user, String text, Date time){
 		this.user = Objects.requireNonNull(user);
 		this.text = Objects.requireNonNull(text);
+		this.time = time;
 	}
 	
 	public Long getId() {
@@ -66,5 +69,17 @@ public class Croak {
 	
 	public void setText(String text) {
 		this.text = text;
+	}
+	
+	public Date getTime() {
+		return time;
+	}
+	
+	public String getTimeStr() {
+		String format = "yyyy-MM-dd hh:mm";
+		if(new Date().getDay() == time.getDay()) {
+			format = "hh:mm";
+		}
+		return new SimpleDateFormat(format).format(time);
 	}
 }

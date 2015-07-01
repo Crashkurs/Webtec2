@@ -83,6 +83,10 @@ public class User {
 	public List<User> getFollowers() {
 		return followers;
 	}
+	
+	public void addFollower(User user){
+		followers.add(user);
+	}
 
 	public Collection<String> getPermissions() {
 		return permissions;

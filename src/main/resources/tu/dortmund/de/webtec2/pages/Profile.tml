@@ -1,29 +1,64 @@
-<html t:type="layout" title="webtec2 Profile"
+<html t:type="layout" title="Profil von ${name}"
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
       xmlns:p="tapestry:parameter">
       
-      <p>Profil von ${name}</p>
-      
-      <t:zone t:id="profileCroaks">
-      	<p>Croaks</p>
-      	<ul>
-	      	<t:loop source="croaks" value="croak">
-				<li>
-					${croak.text}
-				</li>
-			</t:loop>
-		</ul>
+      <t:zone id="profile">
+	      <t:if test="loadSuccess">		      
+		      <t:if test="!isFollowing">
+		      	<p><t:actionlink t:id="follow" context="name">Folgen</t:actionlink></p>
+		      	<p:else><p>Du folgst ${name} bereits.</p></p:else>
+		      </t:if>
+		      <t:if test="!isFollower">
+		      	<p><t:actionlink t:id="followMe" context="name">Folg mir!</t:actionlink></p>
+		      	<p:else><p>${name} folgt Dir bereits, oder hat eine Einladung Dir zu folgen.</p></p:else>
+		      </t:if>
+		      <t:zone t:id="profileCroaks">
+		      	<p>Croaks</p>
+		      	<ul>
+			      	<t:loop source="croaks" value="croak">
+						<li>
+							[${croak.timeStr}] 
+							<t:pagelink page="profile" context="${croak.user.name}">
+								${croak.user.name}
+							</t:pagelink>: 
+							${croak.text}
+						</li>
+					</t:loop>
+				</ul>
+		      </t:zone>
+		      
+		      <t:zone t:id="profileFollowers">
+		      	<t:if test="isOwnProfile">
+		      		<p>Leute die Dir folgen</p>
+		      		<p:else>Leute die ${name} folgen</p:else>
+		      	</t:if>
+		      	<ul>
+		      		<t:loop source="followers" value="follower">
+			      		<li>
+			      			<t:pagelink page="profile" context="${follower.name}">
+			      				${follower.name}
+			      			</t:pagelink>
+			      		</li>
+			      	</t:loop>
+		      	</ul>
+		      </t:zone>
+		      
+		      <t:zone t:id="profileFollowing">
+		      	<t:if test="isOwnProfile">
+		      		<p>Leute denen Du folgst</p>
+			      	<ul>
+			      		<t:loop source="following" value="follower">
+				      		<li>
+				      			<t:pagelink page="profile" context="${follower.name}">
+				      				${follower.name}
+				      			</t:pagelink>
+				      		</li>
+				      	</t:loop>
+			      	</ul>
+		      	</t:if>	
+		      </t:zone>
+		      
+		      <p:else>Der Nutzer existiert nicht.</p:else>
+	      </t:if>
       </t:zone>
-      
-      <t:zone t:id="profileFollowers">
-      	<p>Leute die ${name} folgen:</p>
-      	<ul>
-      		<t:loop source="followers" value="follower">
-	      		<li>
-	      			${follower.name}
-	      		</li>
-	      	</t:loop>
-      	</ul>
-      </t:zone>
-      
 </html>

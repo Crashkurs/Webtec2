@@ -3,6 +3,7 @@ package tu.dortmund.de.webtec2.services;
 import java.util.Date;
 
 import org.apache.tapestry5.hibernate.HibernateSessionManager;
+import org.hibernate.Session;
 
 import tu.dortmund.de.webtec2.entities.Croak;
 import tu.dortmund.de.webtec2.entities.Notification;
@@ -28,21 +29,27 @@ public class TestService {
 
 	private void initializeAdminAccount() {
 		try{
+			Session session = hibernateSessionManager.getSession();
+			Date time = new Date();
+			
 			User admin = registerCtrl.createNewUser("admin", "admin", "admin");
 			User test = registerCtrl.createNewUser("test", "test", "test");
+			User test2 = registerCtrl.createNewUser("test2", "test2", "test2");
 			//Test User folgt Admin User
 			admin.getFollowers().add(test);
 			admin.getFollowing().add(test);
 			test.getFollowers().add(admin);
 			test.getFollowing().add(admin);
-			Croak croak = new Croak(admin, "test croak vom admin");
-			Croak croak2 = new Croak(test, "test croak von test");
-			Notification note = new Notification(test, admin, new Date().getTime());
-			hibernateSessionManager.getSession().update(admin);
-			hibernateSessionManager.getSession().update(test);
-			hibernateSessionManager.getSession().persist(croak);
-			hibernateSessionManager.getSession().persist(croak2);
-			hibernateSessionManager.getSession().persist(note);
+			Croak croak = new Croak(admin, "test croak vom admin", new Date(time.getTime()-500));
+			Croak croak2 = new Croak(test, "test croak von test", time);
+			Notification note = new Notification(test, admin, time);
+			
+			session.update(admin);
+			session.update(test);
+			session.update(test2);
+			session.persist(croak);
+			session.persist(croak2);
+			session.persist(note);
 			hibernateSessionManager.commit();
 		}catch(IllegalArgumentException ex) {
 			ex.printStackTrace();

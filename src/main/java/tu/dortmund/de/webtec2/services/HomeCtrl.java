@@ -1,5 +1,6 @@
 package tu.dortmund.de.webtec2.services;
 
+import java.util.Date;
 import java.util.LinkedList;
 
 import org.apache.tapestry5.hibernate.HibernateSessionManager;
@@ -28,7 +29,7 @@ public class HomeCtrl {
 	 */
 	public Croak createCroak(String text) {
 		Session session = this.hibernateSessionManager.getSession();
-		Croak c = new Croak(globalctrl.getCurrentUser(), text);
+		Croak c = new Croak(globalctrl.getCurrentUser(), text, new Date());
 		session.persist(c);
 		hibernateSessionManager.commit();
 		return c;
