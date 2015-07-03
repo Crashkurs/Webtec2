@@ -88,7 +88,6 @@ public class Profile {
 	
 	@CommitAfter
 	Object onActionFromFollow(String userName){
-		System.out.println("userName: " + userName);
 		profileCtrl.follow(userName);
 		return profile;
 	}

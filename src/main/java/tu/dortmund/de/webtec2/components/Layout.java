@@ -1,19 +1,24 @@
 package tu.dortmund.de.webtec2.components;
 
+import java.util.List;
+
 import org.apache.shiro.SecurityUtils;
 import org.apache.tapestry5.BindingConstants;
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.ComponentResources;
+import org.apache.tapestry5.Link;
 import org.apache.tapestry5.SymbolConstants;
 import org.apache.tapestry5.annotations.Import;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.annotations.RequestParameter;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.ioc.annotations.Symbol;
+import org.apache.tapestry5.services.PageRenderLinkSource;
 
 import tu.dortmund.de.webtec2.entities.User;
-import tu.dortmund.de.webtec2.pages.Home;
 import tu.dortmund.de.webtec2.pages.Login;
+import tu.dortmund.de.webtec2.pages.Profile;
 import tu.dortmund.de.webtec2.services.GlobalCtrl;
 
 /**
@@ -31,6 +36,12 @@ public class Layout
 
     @Property
     private String pageName;
+    
+    @Property
+    private List<User> users;
+    
+    @Property
+    private String searchFieldText;
 
     @Property
     @Parameter(defaultPrefix = BindingConstants.LITERAL)
@@ -53,6 +64,9 @@ public class Layout
     
     @Property
     User user;
+    
+    @Inject
+    PageRenderLinkSource pageRenderLink;
 
     public String getClassForPageName()
     {
@@ -70,4 +84,20 @@ public class Layout
     	globalCtrl.logout();
     	return Login.class;
     }
+    
+    Object onSubmitFromSearchForm(@RequestParameter(value = "searchField") String searchForm) {
+    	Link profile = pageRenderLink.createPageRenderLinkWithContext(Profile.class, searchForm);
+    	return profile;
+    }
+    
+    String[] onProvideCompletionsFromSearchField(String partial) {
+    	List<User> users = globalCtrl.findUserByRegex(partial);
+    	String[] names = new String[users.size()];
+    	for(int x = 0; x < users.size(); x++) {
+    		names[x] = users.get(x).getName();
+    	}
+    	return names;
+    }
+    
+    
 }

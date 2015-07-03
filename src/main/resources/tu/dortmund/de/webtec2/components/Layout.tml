@@ -25,6 +25,7 @@ Description: A Web 2.0 design with fluid width suitable for blogs and small webs
                     <t:pagelink page="home">Webtech2 Projekt</t:pagelink>
                 </h1>
             </div>
+            
             <div class="menu">
                 <ul>
                     <t:security.authenticated>
@@ -47,6 +48,15 @@ Description: A Web 2.0 design with fluid width suitable for blogs and small webs
 	                   	</p:else>
 	                </t:security.authenticated>
                 </ul>
+            </div>
+            <div class="search" style="text-align: center;">
+            	<t:form t:id="searchForm">
+            		<t:textfield t:id="searchField" t:value="searchFieldText" t:mixins="autocomplete"/>
+            		<t:loop source="users" value="user">
+            			<t:textfield t:id="test" t:value="searchFieldText">user.name</t:textfield><br/>
+            		</t:loop>
+            		<t:submit value="Search"/>
+            	</t:form>
             </div>
         </div>
         <!-- end header -->

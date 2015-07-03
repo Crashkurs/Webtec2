@@ -8,7 +8,7 @@
     <body>
 
         <menu name="webtec2 Project">
-            <item name="About" href="index.html"/>
+            <item name="Home" href="home"/>
         </menu>
 
         <menu ref="reports"/>
