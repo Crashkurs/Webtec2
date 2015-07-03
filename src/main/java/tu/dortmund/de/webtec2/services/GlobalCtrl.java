@@ -176,4 +176,18 @@ public class GlobalCtrl {
 		User result = (User) criteria.uniqueResult();
 		return result;
 	}
+	
+	public List<User> findUserByRegex(String regex) {
+		Session session = this.hibernateSessionManager.getSession();
+		
+		// Create the query
+		Criteria criteria = session.createCriteria(User.class);
+
+		// Sets the WHERE clause in the query
+		criteria.add(Restrictions.ilike("name", regex + "%"));
+
+		// Execute the query and return it
+		List<User> result = criteria.list();
+		return result;
+	}
 }
