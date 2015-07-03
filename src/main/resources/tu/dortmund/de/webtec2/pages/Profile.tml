@@ -5,11 +5,11 @@
       <t:zone id="profile">
 	      <t:if test="loadSuccess">		      
 		      <t:if test="!isFollowing">
-		      	<p><t:actionlink t:id="follow" context="name">Folgen</t:actionlink></p>
+		      	<p><t:actionlink t:id="follow" t:zone="^" context="name">Folgen</t:actionlink></p>
 		      	<p:else><p>Du folgst ${name} bereits.</p></p:else>
 		      </t:if>
 		      <t:if test="!isFollower">
-		      	<p><t:actionlink t:id="followMe" context="name">Folg mir!</t:actionlink></p>
+		      	<p><t:actionlink t:id="followMe" t:zone="^" context="name">Folg mir!</t:actionlink></p>
 		      	<p:else><p>${name} folgt Dir bereits, oder hat eine Einladung Dir zu folgen.</p></p:else>
 		      </t:if>
 		      <t:zone t:id="profileCroaks">

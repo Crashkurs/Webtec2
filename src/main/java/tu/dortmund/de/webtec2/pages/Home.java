@@ -2,6 +2,7 @@ package tu.dortmund.de.webtec2.pages;
 
 import java.util.LinkedList;
 
+import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
@@ -47,18 +48,15 @@ public class Home {
 			ex.printStackTrace();
 		}
 	}
-
-	public void onActionFromMyProfile() {
-	
-	}
 	
 	
-	public void onSelectedFromPost(String s) {
+	Object onSelectedFromPost(String s) {
 		if (croaks == null) {
 			croaks = new LinkedList<Croak>();
 		}
 	    if (!s.equals("") && !s.trim().isEmpty() && s.length()<= 140) {
 			croaks.add(homectrl.createCroak(s));
 		}
+		return null;
 	}
 }
