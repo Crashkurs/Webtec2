@@ -22,20 +22,29 @@ Description: A Web 2.0 design with fluid width suitable for blogs and small webs
         <div class="header">
             <div class="logo">
                 <h1>
-                    <t:pagelink page="index">tu.dortmund.de:webtec2</t:pagelink>
-                    &nbsp;
-                    version ${appVersion}
+                    <t:pagelink page="home">Webtech2 Projekt</t:pagelink>
                 </h1>
             </div>
             <div class="menu">
                 <ul>
-                    <li t:type="loop" source="pageNames" value="pageName" class="prop:classForPageName">
-                        <t:pagelink page="prop:pageName">${pageName}</t:pagelink>
-                    </li>
                     <t:security.authenticated>
+                    	<li>
+	                    	<t:pagelink page="Home">Home</t:pagelink>
+	                   	</li>
+	                   	<li>
+	                    	<t:actionlink t:id="logout">Log out</t:actionlink>
+	                   	</li>
 	                    <li>
 	                    	<t:pagelink page="Profile" context="user.name">Profile</t:pagelink>
 	                   	</li>
+	                   	<p:else>
+	                   		<li>
+	                    		<t:pagelink page="Login">Log in</t:pagelink>
+	                   		</li>
+	                   		<li>
+	                    		<t:pagelink page="Register">Register</t:pagelink>
+	                   		</li>
+	                   	</p:else>
 	                </t:security.authenticated>
                 </ul>
             </div>

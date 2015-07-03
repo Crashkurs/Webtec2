@@ -1,5 +1,6 @@
 package tu.dortmund.de.webtec2.pages;
 
+import org.apache.shiro.authz.annotation.RequiresGuest;
 import org.apache.tapestry5.alerts.AlertManager;
 import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.Property;
@@ -10,6 +11,7 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 
 import tu.dortmund.de.webtec2.services.RegisterCtrl;
 
+@RequiresGuest
 public class Register {
 
 	@Property
@@ -40,6 +42,6 @@ public class Register {
 			alertManager.error(ex.getMessage());
 			return registerForm;
 		}
-		return Index.class;
+		return Home.class;
 	}
 }

@@ -12,6 +12,8 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.ioc.annotations.Symbol;
 
 import tu.dortmund.de.webtec2.entities.User;
+import tu.dortmund.de.webtec2.pages.Home;
+import tu.dortmund.de.webtec2.pages.Login;
 import tu.dortmund.de.webtec2.services.GlobalCtrl;
 
 /**
@@ -58,14 +60,14 @@ public class Layout
                 ? "current_page_item"
                 : null;
     }
-
-    public String[] getPageNames()
-    {
-        return new String[]{"Index", "About", "Contact", "Home", "Register"};
-    }
     
     public void setupRender() {
     	if(SecurityUtils.getSubject().isAuthenticated())
     		this.user = globalCtrl.getCurrentUser();
+    }
+    
+    Object onActionFromLogout() {
+    	globalCtrl.logout();
+    	return Login.class;
     }
 }
