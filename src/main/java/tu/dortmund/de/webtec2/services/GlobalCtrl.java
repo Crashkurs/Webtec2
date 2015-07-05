@@ -120,6 +120,12 @@ public class GlobalCtrl {
 		return result;
 	}
 
+	/**
+	 * Returns the current user if logged in.
+	 * 
+	 * @return the current user
+	 * @throws AuthenticationException if the user is not logged in
+	 */
 	public User getCurrentUser() {
 		User currentUser = (User) SecurityUtils.getSubject().getPrincipal();
 		if (currentUser == null) {
@@ -129,6 +135,12 @@ public class GlobalCtrl {
 		return currentUser;
 	}
 
+	/**
+	 * Finds the user with the given username in the database and returns the object.
+	 * 
+	 * @param userName the name of the user
+	 * @return the user object for the given name
+	 */
 	public User findUserByName(String userName) {
 		Session session = this.hibernateSessionManager.getSession();
 		
@@ -143,6 +155,12 @@ public class GlobalCtrl {
 		return result;
 	}
 	
+	/**
+	 * Finds all users matching the given regex in the database and returns the list.
+	 * 
+	 * @param regex the regex which should be matched against the user names.
+	 * @return the list of users matching the regex
+	 */
 	public List<User> findUserByRegex(String regex) {
 		Session session = this.hibernateSessionManager.getSession();
 		

@@ -3,7 +3,6 @@ package tu.dortmund.de.webtec2.pages;
 import java.util.LinkedList;
 
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
-import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 

@@ -5,17 +5,18 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
-import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import org.apache.tapestry5.beaneditor.Validate;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
 public class User {
@@ -28,18 +29,18 @@ public class User {
 	private String password;
 	
 	@ManyToMany
-	@Fetch(value = FetchMode.JOIN)
-	@Column(name = "Following")
+	@JoinTable(name="Following")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<User> following;
-	
-	@ManyToMany(mappedBy = "following")
-	@Fetch(value = FetchMode.JOIN)
-	@Column(name = "Followers")
+
+	@ManyToMany
+	@JoinTable(name="Followers")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<User> followers;
 	
-	@OneToMany(fetch = FetchType.EAGER)
+	@OneToMany
 	@Fetch(value = FetchMode.SUBSELECT)
-	@Column(name = "Notifications")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Notification> notes;
 	
 	@ElementCollection

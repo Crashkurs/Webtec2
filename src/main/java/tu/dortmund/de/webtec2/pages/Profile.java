@@ -67,6 +67,7 @@ public class Profile {
 			profileUser = profileCtrl.loadUser(userName);
 			
 			if(profileUser != null) {
+				System.out.println("Lade Croaks für " + profileUser.getName());
 				croaks = profileCtrl.loadCroaks(profileUser);
 				followers = profileUser.getFollowers();
 				following = profileUser.getFollowing();
