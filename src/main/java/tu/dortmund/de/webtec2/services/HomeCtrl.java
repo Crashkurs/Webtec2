@@ -44,7 +44,7 @@ public class HomeCtrl {
 		LinkedList<User> user = new LinkedList<User>();
 		LinkedList<Croak> result = new LinkedList<Croak>();
 
-		user.addAll(globalctrl.loadFollower());
+		user.addAll(globalctrl.getCurrentUser().getFollowing());
 		try {
 			for (int i = 0; i < user.size(); i++) 
 				result.addAll(globalctrl.loadCroaks(user.get(i)));		
@@ -57,7 +57,7 @@ public class HomeCtrl {
 	
 	public LinkedList<Notification> loadNotifications() {
 		LinkedList<Notification> result = new LinkedList<Notification>();
-		result.addAll(globalctrl.getNotifications());
+		result.addAll(globalctrl.getCurrentUser().getNotifications());
 		return result;
 	}
 	

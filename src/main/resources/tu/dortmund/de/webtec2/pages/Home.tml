@@ -3,22 +3,25 @@
       xmlns:p="tapestry:parameter">
 
 
-    <p>die hast folgende neue Meldungen:</p>
-	
-	
-	
-	<p>deine Freunde haben folgendes gecroakt:</p>
-	<ul>
-		<t:loop source="followedCroaks" value="followerCroak">
-		<li>
-			${followerCroak.user.name} croakt: ${followerCroak.text}
-		</li>
-		</t:loop>
-	</ul>
+    <p>Du hast folgende neue Meldungen:</p>
 	<ul>
 		<t:loop source="notes" value="note">
 		<li>
-			${note.fromuser.name} empfiehlt dir, ihm zu folgen!
+			<t:pagelink page="profile" context="${note.fromuser}">${note.fromuser}</t:pagelink> 
+			empfiehlt Dir, ihm zu folgen!
+		</li>
+		</t:loop>
+	</ul>
+	
+	<p>Deine Freunde haben folgendes gecroakt:</p>
+	<ul>
+		<t:loop source="followedCroaks" value="followerCroak">
+		<li>
+			[${followerCroak.timeStr}] 
+			<t:pagelink page="profile" context="${followerCroak.user.name}">
+				${followerCroak.user.name}
+			</t:pagelink>: 
+			${followerCroak.text}
 		</li>
 		</t:loop>
 	</ul>
@@ -33,12 +36,15 @@
 	</t:form>
 	
 	<p><t:actionlink t:id="refresh">Aktualisieren</t:actionlink></p>
-	<p><t:actionlink t:id="myprofile">Mein Profil</t:actionlink></p>
 	
 	<ul>
 		<t:loop source="croaks" value="croak">
 		<li>
-			${croak.user.name} croakt: ${croak.text}
+			[${croak.timeStr}] 
+			<t:pagelink page="profile" context="${croak.user.name}">
+				${croak.user.name}
+			</t:pagelink>: 
+			${croak.text}
 		</li>
 		</t:loop>
 	</ul>

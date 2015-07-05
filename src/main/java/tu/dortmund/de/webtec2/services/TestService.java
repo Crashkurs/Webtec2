@@ -35,14 +35,15 @@ public class TestService {
 			User admin = registerCtrl.createNewUser("admin", "admin", "admin");
 			User test = registerCtrl.createNewUser("test", "test", "test");
 			User test2 = registerCtrl.createNewUser("test2", "test2", "test2");
-			//Test User folgt Admin User
+			//Test User folgt Admin User und vice versa
 			admin.getFollowers().add(test);
 			admin.getFollowing().add(test);
 			test.getFollowers().add(admin);
 			test.getFollowing().add(admin);
 			Croak croak = new Croak(admin, "test croak vom admin", new Date(time.getTime()-500));
 			Croak croak2 = new Croak(test, "test croak von test", time);
-			Notification note = new Notification(test, admin, time);
+			Notification note = new Notification(test.getName(), time);
+			admin.getNotifications().add(note);
 			
 			session.update(admin);
 			session.update(test);

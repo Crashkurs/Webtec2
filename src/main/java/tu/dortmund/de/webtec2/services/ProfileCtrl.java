@@ -22,7 +22,7 @@ public class ProfileCtrl {
 		
 	}
 	
-	public User loadUser(String name){
+	public User loadUser(String name) {
 		return globalCtrl.findUserByName(name);
 	}
 	
@@ -34,73 +34,84 @@ public class ProfileCtrl {
 		}
 	}
 	
-	public List<Croak> loadCroaks(User user){
+	public List<Croak> loadCroaks(User user) {
 		return globalCtrl.loadCroaks(user);
 	}
 	
-	public List<User> loadFollowers(User user){
-		return globalCtrl.loadFollower(user);
+	public List<User> loadFollowers(User user) {
+		return user.getFollowers();
 	}
 	
-	public boolean followMe(String userName){
+	public boolean followMe(String userName) {
 		Session session = hibernateSessionManager.getSession();
 		User fromUser = globalCtrl.getCurrentUser();
 		User toUser = globalCtrl.findUserByName(userName);
 		
-		List<User> fromUserFollowers = globalCtrl.loadFollower(fromUser);
+		List<User> fromUserFollowers = fromUser.getFollowers();
 		//If the toUser already follows fromUser, no notification necessary
-		if(containsUser(fromUserFollowers, toUser))
+		if(getIndexOfUser(fromUserFollowers, toUser) != -1)
 			return false;
 		
 		//If toUser already has a notification from fromUser, don't create another one
-		List<Notification> toUserNotes = globalCtrl.getNotifications(toUser);
-		for(Notification note: toUserNotes){
-			if(note.getFromUser().getName().equals(fromUser.getName()))
-				return false;
-		}
-
-		Notification note = new Notification(fromUser,
-								    toUser,
-								    new Date());
+		if(getIndexOfNote(fromUser, toUser) != -1)
+			return false;
+		
+		Notification note = new Notification(fromUser.getName(), new Date());
+		toUser.getNotifications().add(note);
+		session.update(toUser);
 		session.persist(note);
 		return true;
 	}
 	
-	public boolean follow(String userName){
+	public boolean follow(String userName) {
 		Session session = hibernateSessionManager.getSession();
 		User fromUser = globalCtrl.getCurrentUser();
 		User toUser = globalCtrl.findUserByName(userName);
 		List<User> toUserFollowers = toUser.getFollowers();
-		if(containsUser(toUserFollowers, fromUser))
+		if(getIndexOfUser(toUserFollowers, fromUser) != -1)
 			return false;
-		toUser.getFollowers().add(fromUser);
 		fromUser.getFollowing().add(toUser);
-		List<Notification> notes = globalCtrl.getNotifications();
-		for(Notification note: notes){
-			if(note.getFromUser().getName().equals(fromUser.getName())) {
-				session.delete(note);
-			}
+		toUser.getFollowers().add(fromUser);
+		int noteIndex = getIndexOfNote(toUser, fromUser);
+		if(noteIndex != -1) {
+			fromUser.getNotifications().remove(noteIndex);
 		}
-		session.update(toUser);
-		session.update(fromUser);
+		session.merge(fromUser);
+		session.merge(toUser);
 		return true;
 	}
 	
-	public boolean containsUser(List<User> users, User user){
-		for(User u: users){
-			if(u.getName().equals(user.getName())){
-				return true;
-			}
+	public boolean unfollow(String userName) {
+		Session session = hibernateSessionManager.getSession();
+		User fromUser = globalCtrl.getCurrentUser();
+		User toUser = globalCtrl.findUserByName(userName);
+		int fromUserIndex = getIndexOfUser(toUser.getFollowers(), fromUser);
+		int toUserIndex = getIndexOfUser(fromUser.getFollowing(), toUser);
+		if(fromUserIndex != -1 && toUserIndex != -1){
+			toUser.getFollowers().remove(fromUserIndex);
+			fromUser.getFollowing().remove(toUserIndex);
+			session.merge(fromUser);
+			session.merge(toUser);
+			return true;
 		}
 		return false;
 	}
 	
-	public boolean notesContainUser(User fromUser, User toUser){
-		List<Notification> notes = globalCtrl.getNotifications(toUser);
-		for(Notification note: notes){
-			if(note.getToUser().getName().equals(toUser.getName()))
-				return true;
+	public int getIndexOfUser(List<User> users, User user) {
+		for(int i=0; i<users.size(); i++){
+			if(users.get(i).getName().equals(user.getName())){
+				return i;
+			}
 		}
-		return false;
+		return -1;
+	}
+	
+	public int getIndexOfNote(User fromUser, User toUser) {
+		List<Notification> notes = toUser.getNotifications();
+		for(int i=0; i<notes.size(); i++) {
+			if(notes.get(i).getFromUser().equals(fromUser.getName()))
+				return i;
+		}
+		return -1;
 	}
 }

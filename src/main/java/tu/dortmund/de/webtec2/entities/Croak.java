@@ -26,7 +26,7 @@ public class Croak {
 	@Property
 	private User user;
 	
-	@Validate("minlength=1,maxlength=256")
+	@Validate("minlength=1,maxlength=255")
 	@Property
 	private String text;
 

@@ -8,8 +8,10 @@ import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 import org.apache.tapestry5.beaneditor.Validate;
 import org.hibernate.annotations.Fetch;
@@ -35,10 +37,13 @@ public class User {
 	@Column(name = "Followers")
 	private List<User> followers;
 	
+	@OneToMany(fetch = FetchType.EAGER)
+	@Fetch(value = FetchMode.SUBSELECT)
+	@Column(name = "Notifications")
+	private List<Notification> notes;
+	
 	@ElementCollection
 	private Collection<String> permissions;
-	
-	//private List<Notification> notifications;
 	
 	/**
 	 * Default constructor for hibernate
@@ -52,6 +57,7 @@ public class User {
 		this.password = Objects.requireNonNull(password);
 		this.following = new LinkedList<User>();
 		this.followers = new LinkedList<User>();
+		this.notes = new LinkedList<Notification>();
 		permissions = new LinkedList<String>();
 	}
 	
@@ -86,6 +92,10 @@ public class User {
 	
 	public void addFollower(User user){
 		followers.add(user);
+	}
+	
+	public List<Notification> getNotifications() {
+		return notes;
 	}
 
 	public Collection<String> getPermissions() {
