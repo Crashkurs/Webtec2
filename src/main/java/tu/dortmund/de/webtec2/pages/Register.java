@@ -42,6 +42,6 @@ public class Register {
 			alertManager.error(ex.getMessage());
 			return registerForm;
 		}
-		return Home.class;
+		return Login.class;
 	}
 }
