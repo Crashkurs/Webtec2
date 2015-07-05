@@ -76,8 +76,8 @@ public class ProfileCtrl {
 		if(noteIndex != -1) {
 			fromUser.getNotifications().remove(noteIndex);
 		}
-		session.update(fromUser);
-		session.update(toUser);
+		session.merge(fromUser);
+		session.merge(toUser);
 		return true;
 	}
 	
@@ -90,8 +90,8 @@ public class ProfileCtrl {
 		if(fromUserIndex != -1 && toUserIndex != -1){
 			toUser.getFollowers().remove(fromUserIndex);
 			fromUser.getFollowing().remove(toUserIndex);
-			session.update(fromUser);
-			session.update(toUser);
+			session.merge(fromUser);
+			session.merge(toUser);
 			return true;
 		}
 		return false;
@@ -99,7 +99,7 @@ public class ProfileCtrl {
 	
 	public int getIndexOfUser(List<User> users, User user) {
 		for(int i=0; i<users.size(); i++){
-			if(users.get(i).equals(user.getName())){
+			if(users.get(i).getName().equals(user.getName())){
 				return i;
 			}
 		}

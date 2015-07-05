@@ -117,7 +117,6 @@ public class GlobalCtrl {
 
 		// Execute the query and return it
 		List<Croak> result = criteria.list();
-		System.out.println("result size for "+user.getName()+": "+result.size());
 		return result;
 	}
 
