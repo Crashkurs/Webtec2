@@ -1,9 +1,10 @@
-<html t:type="layout" title="Profil von ${profileUser.name}"
+<html t:type="layout" title="Profil"
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
       xmlns:p="tapestry:parameter">
       
       <t:zone id="profile">
-	      <t:if test="loadSuccess">		      
+	      <t:if test="loadSuccess">
+	      	<t:if test="currentUser">		      
 		      <t:if test="!isFollowing">
 		      	<p><t:actionlink t:id="follow" context="profileUser.name">Folgen</t:actionlink></p>
 		      	<p:else>
@@ -20,6 +21,7 @@
 		      		</t:if>
 		      	</p:else>
 		      </t:if>
+		    </t:if>
 		      	<p>Croaks</p>
 		      	<ul>
 			      	<t:loop source="croaks" value="croak">

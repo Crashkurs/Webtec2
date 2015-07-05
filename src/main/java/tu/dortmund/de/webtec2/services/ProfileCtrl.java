@@ -76,8 +76,8 @@ public class ProfileCtrl {
 		if(noteIndex != -1) {
 			fromUser.getNotifications().remove(noteIndex);
 		}
-		session.merge(fromUser);
-		session.merge(toUser);
+		session.update(fromUser);
+		session.update(toUser);
 		return true;
 	}
 	
