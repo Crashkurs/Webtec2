@@ -1,8 +1,21 @@
 package tu.dortmund.de.webtec2.pages;
 
-import org.apache.shiro.authz.annotation.RequiresGuest;
-import org.apache.tapestry5.annotations.Property;
+import javax.inject.Inject;
 
-@RequiresGuest
+import org.apache.shiro.SecurityUtils;
+import org.apache.tapestry5.Link;
+import org.apache.tapestry5.services.PageRenderLinkSource;
+
 public class Login {
+	
+	@Inject
+	PageRenderLinkSource pageRender;
+	
+	Object onActivate() {
+		if(SecurityUtils.getSubject().isAuthenticated() || SecurityUtils.getSubject().isRemembered()) {
+			Link link = pageRender.createPageRenderLink(Home.class);
+			return link;
+		}
+		return null;
+	}
 }

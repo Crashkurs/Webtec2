@@ -64,6 +64,8 @@ public class AppModule
     	configuration.add(SecuritySymbols.LOGIN_URL, "/login");
     	configuration.add(SecuritySymbols.UNAUTHORIZED_URL, "/login");
     	configuration.add(SecuritySymbols.SUCCESS_URL, "/home");
+    	configuration.add(SymbolConstants.START_PAGE_NAME, "Login");
+    	configuration.add(SymbolConstants.HMAC_PASSPHRASE, "webtec2passphrase");
     }
 
     /**
