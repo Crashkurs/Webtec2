@@ -44,7 +44,7 @@ public class HomeCtrl {
 		LinkedList<User> user = new LinkedList<User>();
 		LinkedList<Croak> result = new LinkedList<Croak>();
 
-		user.addAll(globalctrl.loadFollower());
+		user.addAll(globalctrl.getCurrentUser().getFollowing());
 		try {
 			for (int i = 0; i < user.size(); i++) 
 				result.addAll(globalctrl.loadCroaks(user.get(i)));		
