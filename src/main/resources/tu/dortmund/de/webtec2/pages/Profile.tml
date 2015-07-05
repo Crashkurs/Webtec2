@@ -1,18 +1,25 @@
-<html t:type="layout" title="Profil von ${name}"
+<html t:type="layout" title="Profil von ${profileUser.name}"
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
       xmlns:p="tapestry:parameter">
       
       <t:zone id="profile">
 	      <t:if test="loadSuccess">		      
 		      <t:if test="!isFollowing">
-		      	<p><t:actionlink t:id="follow" t:zone="^" context="name">Folgen</t:actionlink></p>
-		      	<p:else><p>Du folgst ${name} bereits.</p></p:else>
+		      	<p><t:actionlink t:id="follow" context="profileUser.name">Folgen</t:actionlink></p>
+		      	<p:else>
+		      		<t:if test="!isOwnProfile">
+		      			<p><t:actionlink t:id="unfollow" context="profileUser.name">Nicht mehr folgen</t:actionlink></p>
+		      		</t:if>
+		      	</p:else>
 		      </t:if>
 		      <t:if test="!isFollower">
-		      	<p><t:actionlink t:id="followMe" t:zone="^" context="name">Folg mir!</t:actionlink></p>
-		      	<p:else><p>${name} folgt Dir bereits, oder hat eine Einladung Dir zu folgen.</p></p:else>
+		      	<p><t:actionlink t:id="followMe" context="profileUser.name">Folg mir!</t:actionlink></p>
+		      	<p:else>
+		      		<t:if test="!isOwnProfile">
+		      			<p>${profileUser.name} folgt Dir bereits, oder hat eine Einladung Dir zu folgen.</p>
+		      		</t:if>
+		      	</p:else>
 		      </t:if>
-		      <t:zone t:id="profileCroaks">
 		      	<p>Croaks</p>
 		      	<ul>
 			      	<t:loop source="croaks" value="croak">
@@ -25,12 +32,10 @@
 						</li>
 					</t:loop>
 				</ul>
-		      </t:zone>
-		      
-		      <t:zone t:id="profileFollowers">
+
 		      	<t:if test="isOwnProfile">
 		      		<p>Leute die Dir folgen</p>
-		      		<p:else>Leute die ${name} folgen</p:else>
+		      		<p:else>Leute die ${profileUser.name} folgen</p:else>
 		      	</t:if>
 		      	<ul>
 		      		<t:loop source="followers" value="follower">
@@ -41,9 +46,7 @@
 			      		</li>
 			      	</t:loop>
 		      	</ul>
-		      </t:zone>
-		      
-		      <t:zone t:id="profileFollowing">
+
 		      	<t:if test="isOwnProfile">
 		      		<p>Leute denen Du folgst</p>
 			      	<ul>
@@ -56,8 +59,7 @@
 				      	</t:loop>
 			      	</ul>
 		      	</t:if>	
-		      </t:zone>
-		      
+
 		      <p:else>Der Nutzer existiert nicht.</p:else>
 	      </t:if>
       </t:zone>

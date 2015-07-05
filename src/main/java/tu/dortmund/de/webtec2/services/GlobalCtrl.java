@@ -11,7 +11,6 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
 import tu.dortmund.de.webtec2.entities.Croak;
-import tu.dortmund.de.webtec2.entities.Notification;
 import tu.dortmund.de.webtec2.entities.User;
 
 @SuppressWarnings("unchecked")
@@ -31,39 +30,6 @@ public class GlobalCtrl {
 	@RequiresAuthentication
 	public void logout() {
 		SecurityUtils.getSubject().logout();
-	}
-
-	/**
-	 * Retrieves the notifications for the current user.
-	 * 
-	 * @return the notifications for the current user
-	 */
-	@RequiresAuthentication
-	public List<Notification> getNotifications() {
-		return getNotifications(getCurrentUser());
-	}
-	
-	/**
-	 * Retrieves the notifications for the given user.
-	 * 
-	 * @param user
-	 * 		      the given user
-	 * @return the notifications for the current user
-	 */
-	public List<Notification> getNotifications(User user) {
-		Session session = this.hibernateSessionManager.getSession();
-
-		// Create the query
-		Criteria criteria = session.createCriteria(Notification.class);
-
-		// Add restriction
-		criteria.add(Restrictions.eq("toUser",
-				user));
-
-		// Execute the query and return it
-		List<Notification> result = criteria.list();
-
-		return result;
 	}
 
 	/**
@@ -151,6 +117,7 @@ public class GlobalCtrl {
 
 		// Execute the query and return it
 		List<Croak> result = criteria.list();
+		System.out.println("result size for "+user.getName()+": "+result.size());
 		return result;
 	}
 

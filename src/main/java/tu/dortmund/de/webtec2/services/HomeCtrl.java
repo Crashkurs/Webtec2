@@ -57,7 +57,7 @@ public class HomeCtrl {
 	
 	public LinkedList<Notification> loadNotifications() {
 		LinkedList<Notification> result = new LinkedList<Notification>();
-		result.addAll(globalctrl.getNotifications());
+		result.addAll(globalctrl.getCurrentUser().getNotifications());
 		return result;
 	}
 	

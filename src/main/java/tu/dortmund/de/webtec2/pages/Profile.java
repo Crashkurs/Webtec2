@@ -2,11 +2,12 @@ package tu.dortmund.de.webtec2.pages;
 
 import java.util.List;
 
-import org.apache.tapestry5.alerts.AlertManager;
+import org.apache.tapestry5.Link;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.services.PageRenderLinkSource;
 
 import tu.dortmund.de.webtec2.entities.Croak;
 import tu.dortmund.de.webtec2.entities.User;
@@ -15,7 +16,10 @@ import tu.dortmund.de.webtec2.services.ProfileCtrl;
 public class Profile {
 	
 	@Property
-	private String name;
+	private User currentUser;
+	
+	@Property
+	private User profileUser;
 	
 	@Property
 	private List<Croak> croaks;
@@ -36,7 +40,7 @@ public class Profile {
 	private boolean isOwnProfile;
 	
 	@Property
-	private boolean loadSuccess = false;
+	private boolean loadSuccess;
 
 	@Property
 	private Croak croak;
@@ -46,32 +50,35 @@ public class Profile {
 	
 	@Property
 	private Zone profile;
+	
+	@Property
+	private String pageName;
 
     @Inject
-    private AlertManager alertManager;
+    PageRenderLinkSource pageRenderLink;
 	
 	@Inject
 	private ProfileCtrl profileCtrl;
 
 	void onActivate(String userName) {
 		try {
-			this.name = userName;
-			User user = profileCtrl.loadUser(name);
+			loadSuccess = false;
+			currentUser = profileCtrl.loadUser();
+			profileUser = profileCtrl.loadUser(userName);
 			
-			if(user != null) {
-				User currentUser = profileCtrl.loadUser();
-				croaks = profileCtrl.loadCroaks(user);
-				followers = user.getFollowers();
-				following = user.getFollowing();
+			if(profileUser != null) {
+				croaks = profileCtrl.loadCroaks(profileUser);
+				followers = profileUser.getFollowers();
+				following = profileUser.getFollowing();
 				isOwnProfile = currentUser != null
-							   && user.getName().equals(currentUser.getName());
+							   && profileUser.getName().equals(currentUser.getName());
 				if(isOwnProfile || currentUser == null) {
 					isFollower = true;
 					isFollowing = true;
 				} else {
-					isFollower = profileCtrl.containsUser(following, currentUser)
-								 || profileCtrl.notesContainUser(currentUser, user);
-					isFollowing = profileCtrl.containsUser(followers, currentUser);		  
+					isFollower = profileCtrl.getIndexOfUser(following, currentUser) != -1
+								 || profileCtrl.getIndexOfNote(currentUser, profileUser) != -1;
+					isFollowing = profileCtrl.getIndexOfUser(followers, currentUser) != -1;		  
 				}
 				loadSuccess = true;
 			}
@@ -81,16 +88,24 @@ public class Profile {
 	}
 	
 	@CommitAfter
-	Object onActionFromFollowMe(String userName){
+	Object onActionFromFollowMe(String userName) {
 		profileCtrl.followMe(userName);
-		return profile;
+		Link profileLink = pageRenderLink.createPageRenderLinkWithContext(Profile.class, userName);
+		return profileLink;
 	}
 	
 	@CommitAfter
-	Object onActionFromFollow(String userName){
+	Object onActionFromFollow(String userName) {
 		profileCtrl.follow(userName);
-		return profile;
+		Link profileLink = pageRenderLink.createPageRenderLinkWithContext(Profile.class, userName);
+		return profileLink;
 	}
 	
+	@CommitAfter
+	Object onActionFromUnfollow(String userName) {
+		profileCtrl.unfollow(userName);
+		Link profileLink = pageRenderLink.createPageRenderLinkWithContext(Profile.class, userName);
+		return profileLink;
+	}
 
 }

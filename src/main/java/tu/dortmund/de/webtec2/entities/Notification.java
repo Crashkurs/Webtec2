@@ -21,12 +21,7 @@ public class Notification {
 	private Long id;
 
 	@Validate("required")
-	@OneToOne
-	private User fromUser;
-	
-	@Validate("required")
-	@OneToOne
-	private User toUser;
+	private String fromUser;
 	
 	@Validate("required")
 	private Date time;
@@ -38,9 +33,8 @@ public class Notification {
 
 	}
 	
-	public Notification(User fromUser, User toUser, Date time){
+	public Notification(String fromUser, Date time){
 		this.fromUser = Objects.requireNonNull(fromUser);
-		this.toUser = toUser;
 		this.time = Objects.requireNonNull(time);
 	}
 	
@@ -52,11 +46,11 @@ public class Notification {
 		this.id = id;
 	}
 	
-	public User getFromUser() {
+	public String getFromUser() {
 		return fromUser;
 	}
 	
-	public void setFromUser(User fromUser) {
+	public void setFromUser(String fromUser) {
 		this.fromUser = fromUser;
 	}
 	
@@ -74,13 +68,5 @@ public class Notification {
 			format = "hh:mm";
 		}
 		return new SimpleDateFormat(format).format(time);
-	}
-	
-	public User getToUser() {
-		return toUser;
-	}
-	
-	public void setToUser(User toUser) {
-		this.toUser = toUser;
 	}
 }
