@@ -17,7 +17,7 @@ Description: A Web 2.0 design with fluid width suitable for blogs and small webs
         <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
         <title>${title}</title>
     </head>
-    <body class="container" style="background-image:url('layout/images/1429295_40383133.jpg');width:100%;height:100%;">
+    <body class="container-fluid" style="background-image:url('/webtec2/layout/images/1429295_40383133.jpg');width:100%;height:100%;position:absolute;overflow:hidden;">
         <!-- start header -->
         <div class="row">
 			<nav class="navbar navbar-default" style="background-color:white;border-radius:0;">
@@ -76,42 +76,23 @@ Description: A Web 2.0 design with fluid width suitable for blogs and small webs
 
         <!-- end header -->
         <!-- start page -->
-        <div class="row" style="color:white;">
-        
+        <div class="row" style="color:white;height:100%;">
         	<!-- start content-->
-        	<div class="col-md-6 col-md-offset-1">
-	                <div class="post">
-	                    <div class="title">
-	                        <h2>${title}</h2>
-	                    </div>
-	                    <div class="entry">
+        	<div class="col-md-6 col-md-offset-1 content vcenter">
+	                    <h2>${title}</h2>
+
 	                        <t:body/>
-	                    </div>
-	                </div>
         	</div>
         	<!-- end content-->
         	<!-- start sidebar-->
-        	<div class="col-md-3 col-md-offset-1">
-                <ul>
-                    <li class="search" style="background: none;">
-                    </li>
-                    <li>
-                        <t:alerts/>
-                    </li>
-                    <li t:type="if" test="sidebar">
-                        <h2>${sidebarTitle}</h2>
-
-                        <div class="sidebar-content">
-                            <t:delegate to="sidebar"/>
-                        </div>
-                    </li>
-                </ul>
+        	<div class="col-md-3 col-md-offset-1 vcenter">
+        		<t:delegate to="sidebar"/>
         	</div>
         	<!-- end sidebar-->
         </div>
         <!-- end page -->
         <!-- start footer -->
-        <footer class="footer" style="position:absolute;bottom:0;width:100%;height:60px;background-color:white;left:0;">
+        <footer class="footer" style="position:absolute;bottom:0;width:100%;height:60px;background-color:white;left:0;line-height:60px;">
 	      <div class="container" style="text-align:center;">
 	        <p class="text-muted">&copy;2015 tu.dortmund.de. All Rights Reserved.</p>
 	      </div>

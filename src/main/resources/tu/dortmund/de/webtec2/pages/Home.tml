@@ -1,31 +1,6 @@
 <html t:type="layout" title="home"
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
       xmlns:p="tapestry:parameter">
-
-
-    <p>Du hast folgende neue Meldungen:</p>
-	<ul>
-		<t:loop source="notes" value="note">
-		<li>
-			<t:pagelink page="profile" context="${note.fromuser}">${note.fromuser}</t:pagelink> 
-			empfiehlt Dir, ihm zu folgen!
-		</li>
-		</t:loop>
-	</ul>
-	
-	<p>Deine Freunde haben folgendes gecroakt:</p>
-	<ul>
-		<t:loop source="followedCroaks" value="followerCroak">
-		<li>
-			[${followerCroak.timeStr}] 
-			<t:pagelink page="profile" context="${followerCroak.user.name}">
-				${followerCroak.user.name}
-			</t:pagelink>: 
-			${followerCroak.text}
-		</li>
-		</t:loop>
-	</ul>
-
 	<t:form>
 	
 	<t:errors/>
@@ -34,10 +9,28 @@
                 <t:submit t:id="post" value="croaken" context="croakInput" />
             </p>
 	</t:form>
+	<!--<p>Deine Freunde haben folgendes gecroakt:</p>-->
+	<ul style="list-style-type:none;padding:0px;">
+		<t:loop source="followedCroaks" value="followerCroak">
+		<li>
+			<blockquote>
+				<p>${followerCroak.text}</p>
+				<footer>
+			  			<t:pagelink page="profile" context="${followerCroak.user.name}">
+							${followerCroak.user.name}
+						</t:pagelink> 
+						<cite title="time">[${followerCroak.timeStr}] </cite>
+				</footer>
+			</blockquote>
+		</li>
+		</t:loop>
+	</ul>
+
+
 	
 	<p><t:actionlink t:id="refresh">Aktualisieren</t:actionlink></p>
 	
-	<ul>
+	<!--<ul>
 		<t:loop source="croaks" value="croak">
 		<li>
 			[${croak.timeStr}] 
@@ -47,5 +40,23 @@
 			${croak.text}
 		</li>
 		</t:loop>
-	</ul>
+	</ul>-->
+	
+	<p:sidebar>
+      	<h1>Meldungen</h1>
+		<ul style="list-style-type:none;padding:0px;">
+			<t:loop source="notes" value="note">
+			<li>
+				<div class="list-group">
+				  <t:pagelink page="profile" context="${note.fromuser}" class="list-group-item">
+				  	
+				    <h4 class="list-group-item-heading">${note.fromuser}</h4>
+				    <p class="list-group-item-text">empfiehlt Dir, ihm zu folgen!</p>
+				  
+				  </t:pagelink> 
+				</div>
+			</li>
+			</t:loop>
+		</ul>
+    </p:sidebar>
 </html>

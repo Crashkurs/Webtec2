@@ -2,6 +2,8 @@
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
       xmlns:p="tapestry:parameter">
       <t:zone t:id="registerForm">
+	   <div class="row">
+      	<div class="col-md-5">
 	      <t:form t:id="registerUser" t:zone="^">
 	      	<p>
 	      		<t:label for="username"/>
@@ -9,17 +11,24 @@
 	      	</p>
 	      	<p>
 	      		<t:label for="password">
-	      			Password
+	      			Passwort
 	      		</t:label>
 	      		<t:passwordfield t:id="password" t:validate="regexp" t:value="password" />
 	      	</p>
 	      	<p>
 	      		<t:label for="password2">
-	      			Password
+	      			Passwort wiederholen
 	      		</t:label>
 	      		<t:passwordfield t:id="password2" t:validate="regexp" t:value="password2" />
 	      	</p>
 	      	<t:submit t:id="register"/>
 	      </t:form>
+      	</div>
+      </div>
 	  </t:zone>
+	  <p:sidebar>
+      	<h1>Du bist schon registriert? Logge dich ein!</h1>
+      	<button type="button" class="btn btn-default btn-lg"><t:pagelink page="Login"><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span>    Zum Login</t:pagelink></button>
+      	
+      </p:sidebar>
 </html>
