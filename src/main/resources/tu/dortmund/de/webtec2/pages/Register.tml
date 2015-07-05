@@ -1,6 +1,7 @@
 <html t:type="layout" title="Register"
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
       xmlns:p="tapestry:parameter">
+      
       <t:zone t:id="registerForm">
 	   <div class="row">
       	<div class="col-md-5">
