@@ -34,9 +34,6 @@ public class Home {
 	@Property
 	private String croakInput;
 
-//	@Component
-//	private BeanEditForm errorform;
-	
 	@Inject
 	private HomeCtrl homectrl;
 
