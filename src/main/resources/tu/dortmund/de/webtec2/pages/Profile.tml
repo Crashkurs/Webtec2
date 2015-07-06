@@ -46,17 +46,22 @@
 				</ul>
 
 		      	<t:if test="isOwnProfile">
-		      		<p>Leute die Dir folgen</p>
-		      		<p:else><h2>Leute die ${profileUser.name} folgen:</h2></p:else>
+		      		<!--<p>Leute die Dir folgen</p>-->
+		      		<!--<p:else><h2>Leute die ${profileUser.name} folgen:</h2></p:else>-->
 		      	</t:if>
-		      	
+		      	<h2><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span>${countFollower}</h2>
 		      	<div class="list-group">
 		      		<t:loop source="followers" value="follower">
-		      			<button type="button" class="list-group-item" style="width:200px">
-		      				<t:pagelink page="profile" context="${follower.name}">
-			      				${follower.name}
-			      			</t:pagelink>
-			      		</button>
+		      			<div class="col-xs-2">
+			      			<h2 style="color:white">${follower.name}</h2>
+	                        <img alt="image" class="img-circle circle-border" src="http://bootdey.com/img/Content/user_1.jpg"/>
+	                           
+			      			<button type="button" class="list-group-item">
+			      				<t:pagelink page="profile" context="${follower.name}">
+				      				Zum Profil
+				      			</t:pagelink>
+				      		</button>
+			      		</div>
 			      	</t:loop>
 				</div>
 				
