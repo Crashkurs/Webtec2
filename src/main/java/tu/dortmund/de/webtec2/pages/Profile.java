@@ -31,6 +31,9 @@ public class Profile {
 	private List<User> following;
 	
 	@Property
+	private int countFollower;
+	
+	@Property
 	private boolean isFollower;
 	
 	@Property
@@ -71,6 +74,7 @@ public class Profile {
 				croaks = profileCtrl.loadCroaks(profileUser);
 				followers = profileUser.getFollowers();
 				following = profileUser.getFollowing();
+				countFollower = followers.size();
 				isOwnProfile = currentUser != null
 							   && profileUser.getName().equals(currentUser.getName());
 				if(isOwnProfile || currentUser == null) {
