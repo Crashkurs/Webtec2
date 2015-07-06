@@ -29,7 +29,7 @@
 	  </t:zone>
 	  <p:sidebar>
       	<h1>Du bist schon registriert? Logge dich ein!</h1>
-      	<button type="button" class="btn btn-default btn-lg"><t:pagelink page="Login"><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span>    Zum Login</t:pagelink></button>
+      	<t:pagelink page="Login" class="myButton"><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span>    Zum Login</t:pagelink>
       	
       </p:sidebar>
 </html>
