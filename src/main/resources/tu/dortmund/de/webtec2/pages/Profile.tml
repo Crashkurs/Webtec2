@@ -11,7 +11,7 @@
 
 		      	<p:else>
 		      		<t:if test="!isOwnProfile">
-		      				<t:actionlink t:id="unfollow" context="profileUser.name" style="color:white;" class="myButton">Nicht mehr folgen</t:actionlink>
+		      				<t:actionlink t:id="unfollow" context="profileUser.name" class="myButton">Nicht mehr folgen</t:actionlink>
 		      		</t:if>
 		      	</p:else>
 		      </t:if>
