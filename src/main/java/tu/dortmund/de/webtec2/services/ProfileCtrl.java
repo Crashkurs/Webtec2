@@ -90,8 +90,8 @@ public class ProfileCtrl {
 		if(fromUserIndex != -1 && toUserIndex != -1){
 			toUser.getFollowers().remove(fromUserIndex);
 			fromUser.getFollowing().remove(toUserIndex);
-			session.update(fromUser);
-			session.update(toUser);
+			session.merge(fromUser);
+			session.merge(toUser);
 			return true;
 		}
 		return false;
