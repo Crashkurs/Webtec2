@@ -26,10 +26,6 @@
 		</li>
 		</t:loop>
 	</ul>
-
-
-	
-	<p><t:actionlink t:id="refresh">Aktualisieren</t:actionlink></p>
 	
 	<!--<ul>
 		<t:loop source="croaks" value="croak">
