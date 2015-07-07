@@ -25,12 +25,6 @@ public class Profile {
 	private List<Croak> croaks;
 	
 	@Property
-	private List<User> followers;
-	
-	@Property
-	private List<User> following;
-	
-	@Property
 	private int countFollower;
 	
 	@Property
@@ -41,9 +35,6 @@ public class Profile {
 	
 	@Property
 	private boolean isOwnProfile;
-	
-	@Property
-	private boolean loadSuccess;
 
 	@Property
 	private Croak croak;
@@ -53,9 +44,6 @@ public class Profile {
 	
 	@Property
 	private Zone profile;
-	
-	@Property
-	private String pageName;
 
     @Inject
     PageRenderLinkSource pageRenderLink;
@@ -64,31 +52,19 @@ public class Profile {
 	private ProfileCtrl profileCtrl;
 
 	void onActivate(String userName) {
-		try {
-			loadSuccess = false;
-			currentUser = profileCtrl.loadUser();
-			profileUser = profileCtrl.loadUser(userName);
-			
-			if(profileUser != null) {
-				System.out.println("Lade Croaks für " + profileUser.getName());
-				croaks = profileCtrl.loadCroaks(profileUser);
-				followers = profileUser.getFollowers();
-				following = profileUser.getFollowing();
-				countFollower = followers.size();
-				isOwnProfile = currentUser != null
-							   && profileUser.getName().equals(currentUser.getName());
-				if(isOwnProfile || currentUser == null) {
-					isFollower = true;
-					isFollowing = true;
-				} else {
-					isFollower = profileCtrl.getIndexOfUser(following, currentUser) != -1
-								 || profileCtrl.getIndexOfNote(currentUser, profileUser) != -1;
-					isFollowing = profileCtrl.getIndexOfUser(followers, currentUser) != -1;		  
-				}
-				loadSuccess = true;
-			}
-		} catch (NullPointerException ex) {
-			ex.printStackTrace();
+		currentUser = profileCtrl.loadUser();
+		profileUser = profileCtrl.loadUser(userName);
+		
+		if(profileUser != null) {
+			croaks = profileCtrl.loadCroaks(profileUser);
+			countFollower = profileUser.getFollowers().size();
+			isOwnProfile = profileUser.getName().equals(currentUser.getName())
+							&& currentUser != null;
+			isFollower = (profileCtrl.getIndexOfUser(profileUser.getFollowing(), currentUser) != -1
+							|| profileCtrl.getIndexOfNote(currentUser, profileUser) != -1)
+							&& !(isOwnProfile || currentUser == null);
+			isFollowing = profileCtrl.getIndexOfUser(profileUser.getFollowers(), currentUser) != -1
+							&& !(isOwnProfile || currentUser == null);
 		}
 	}
 	
