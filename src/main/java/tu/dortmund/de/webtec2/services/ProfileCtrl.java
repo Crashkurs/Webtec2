@@ -38,10 +38,6 @@ public class ProfileCtrl {
 		return globalCtrl.loadCroaks(user);
 	}
 	
-	public List<User> loadFollowers(User user) {
-		return user.getFollowers();
-	}
-	
 	public boolean followMe(String userName) {
 		Session session = hibernateSessionManager.getSession();
 		User fromUser = globalCtrl.getCurrentUser();
