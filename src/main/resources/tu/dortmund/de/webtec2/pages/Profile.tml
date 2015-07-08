@@ -4,7 +4,7 @@
       
       
       <t:zone id="profile">
-	      <t:if test="loadSuccess">
+	      <t:if test="profileUser">
 	      	<t:if test="currentUser">		      
 		      <t:if test="!isFollowing">
 		      	<t:actionlink t:id="follow" context="profileUser.name" style="color:white;" class="myButton">Folgen</t:actionlink>
@@ -47,7 +47,7 @@
 		      	</t:if>
 		      	<h2><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span>${countFollower}</h2>
 		      	<div class="list-group">
-		      		<t:loop source="followers" value="follower">
+		      		<t:loop source="profileUser.followers" value="follower">
 		      			<div class="col-xs-2">
 			      			<h2 style="color:white">${follower.name}</h2>
 	                        <img alt="image" class="img-circle circle-border" src="http://bootdey.com/img/Content/user_1.jpg"/>
@@ -63,7 +63,7 @@
 		      	<t:if test="isOwnProfile">
 		      		<p>Leute denen Du folgst</p>
 			      	<div class="list-group">
-			      		<t:loop source="following" value="follower">
+			      		<t:loop source="profileUser.following" value="follower">
 				      			<t:pagelink page="profile" context="${follower.name}" class="myButton">
 				      				${follower.name}
 				      			</t:pagelink>
