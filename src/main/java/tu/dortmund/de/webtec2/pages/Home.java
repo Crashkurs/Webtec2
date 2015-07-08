@@ -39,7 +39,7 @@ public class Home {
 
 	public void onActivate() {
 		try {
-			croaks = homectrl.loadOnwCroaks();
+			croaks = homectrl.loadOwnCroaks();
 			notes = homectrl.loadNotifications();
 			followedCroaks = homectrl.loadFollowedCroaks();
 		} catch (NullPointerException ex) {
