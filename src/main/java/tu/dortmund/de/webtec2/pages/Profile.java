@@ -62,13 +62,13 @@ public class Profile {
 		if(profileUser != null) {
 			croaks = globalCtrl.loadCroaks(profileUser);
 			countFollower = profileUser.getFollowers().size();
-			isOwnProfile = profileUser.getName().equals(currentUser.getName())
-							&& currentUser != null;
-			isFollower = (globalCtrl.getIndexOfUser(profileUser.getFollowing(), currentUser) != -1
-							|| globalCtrl.getIndexOfNote(currentUser, profileUser) != -1)
-							&& !(isOwnProfile || currentUser == null);
-			isFollowing = globalCtrl.getIndexOfUser(profileUser.getFollowers(), currentUser) != -1
-							&& !(isOwnProfile || currentUser == null);
+			isOwnProfile = currentUser != null
+							&& profileUser.getName().equals(currentUser.getName()) ;
+			isFollower = !(isOwnProfile || currentUser == null)
+							&& (globalCtrl.getIndexOfUser(profileUser.getFollowing(), currentUser) != -1
+							|| globalCtrl.getIndexOfNote(currentUser, profileUser) != -1);
+			isFollowing = !(isOwnProfile || currentUser == null) 
+							&& globalCtrl.getIndexOfUser(profileUser.getFollowers(), currentUser) != -1;
 		}
 	}
 	
