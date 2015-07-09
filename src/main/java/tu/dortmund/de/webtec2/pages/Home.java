@@ -4,9 +4,7 @@ import java.util.LinkedList;
 
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresRoles;
-import org.apache.tapestry5.Link;
 import org.apache.tapestry5.annotations.Property;
-import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.PageRenderLinkSource;
 
@@ -84,11 +82,4 @@ public class Home {
 		}
 		return null;
 	}	
-	
-	@CommitAfter
-	Object onActionFromDeleteNote(String userName) {
-		homectrl.deleteNote(userName);
-		Link homeLink = pageRenderLink.createPageRenderLink(Home.class);
-		return homeLink;
-	}
 }

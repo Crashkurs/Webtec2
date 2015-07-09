@@ -72,23 +72,23 @@ public class Profile {
 	}
 	
 	@CommitAfter
-	Object onActionFromFollowMe(String userName) {
-		profileCtrl.followMe(userName);
-		Link profileLink = pageRenderLink.createPageRenderLinkWithContext(Profile.class, userName);
+	Object onActionFromFollowMe(String profileName) {
+		profileCtrl.followMe(profileName);
+		Link profileLink = pageRenderLink.createPageRenderLinkWithContext(Profile.class, profileName);
 		return profileLink;
 	}
 	
 	@CommitAfter
-	Object onActionFromFollow(String userName) {
-		profileCtrl.follow(userName);
-		Link profileLink = pageRenderLink.createPageRenderLinkWithContext(Profile.class, userName);
+	Object onActionFromFollow(String profileName) {
+		profileCtrl.follow(profileName);
+		Link profileLink = pageRenderLink.createPageRenderLinkWithContext(Profile.class, profileName);
 		return profileLink;
 	}
 	
 	@CommitAfter
-	Object onActionFromUnfollow(String userName) {
-		profileCtrl.unfollow(userName);
-		Link profileLink = pageRenderLink.createPageRenderLinkWithContext(Profile.class, userName);
+	Object onActionFromUnfollow(String profileName) {
+		profileCtrl.unfollow(profileName);
+		Link profileLink = pageRenderLink.createPageRenderLinkWithContext(Profile.class, profileName);
 		return profileLink;
 	}
 	

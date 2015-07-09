@@ -220,7 +220,7 @@ public class GlobalCtrl {
 		List<User> result = criteria.list();
 		return result;
 	}
-
+	
 	public int getIndexOfUser(List<User> users, User user) {
 		for(int i=0; i<users.size(); i++){
 			if(users.get(i).getName().equals(user.getName())){
