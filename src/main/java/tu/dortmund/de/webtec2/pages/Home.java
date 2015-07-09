@@ -1,6 +1,7 @@
 package tu.dortmund.de.webtec2.pages;
 
 import java.util.LinkedList;
+import java.util.List;
 
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresRoles;
@@ -24,7 +25,7 @@ public class Home {
 	private LinkedList<Croak> followedCroaks;
 
 	@Property
-	private LinkedList<Notification> notes;
+	private List<Notification> notes;
 	
 	@Property
 	private Notification note;
@@ -52,10 +53,10 @@ public class Home {
 
 	public void onActivate() {
 		try {
-			croaks = homectrl.loadOwnCroaks();
-			notes = homectrl.loadNotifications();
-			followedCroaks = homectrl.loadFollowedCroaks();
 			User user = globalCtrl.getCurrentUser();
+			croaks = homectrl.loadOwnCroaks();
+			notes = user.getNotifications();
+			followedCroaks = homectrl.loadFollowedCroaks();
 			for(String roles : user.getRoles()) {
 				if(roles.equals("admin")) {
 					canDeleteUser = true;

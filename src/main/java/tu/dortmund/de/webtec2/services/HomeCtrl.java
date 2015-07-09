@@ -57,12 +57,6 @@ public class HomeCtrl {
 		return result;
 	}
 	
-	public LinkedList<Notification> loadNotifications() {
-		LinkedList<Notification> result = new LinkedList<Notification>();
-		result.addAll(globalctrl.getCurrentUser().getNotifications());
-		return result;
-	}
-	
 	/**
 	 * Returns a list of all selfmade croaks
 	 * 
@@ -80,6 +74,13 @@ public class HomeCtrl {
 		return result;
 	}
 	
+	/**
+	 * Deletes the notification the logged in user received from the given user.
+	 * 
+	 * @param userName
+	 * 			name of the sender of the notification
+	 * @return true if the notification was deleted, false if the user doesn't exist, there was no notification or the user wasn't logged in
+	 */
 	public boolean deleteNote(String userName) {
 		try {
 			User currentUser = globalctrl.getCurrentUser();
