@@ -221,6 +221,13 @@ public class GlobalCtrl {
 		return result;
 	}
 	
+	/**
+	 * Returns the index of the user in the list of users or -1 if not found.
+	 * 
+	 * @param users the list of users
+	 * @param user the user which index should be found
+	 * @return the index of the user or -1
+	 */
 	public int getIndexOfUser(List<User> users, User user) {
 		for(int i=0; i<users.size(); i++){
 			if(users.get(i).getName().equals(user.getName())){
@@ -230,6 +237,14 @@ public class GlobalCtrl {
 		return -1;
 	}
 	
+	/**
+	 * Returns the index of the notification for the toUser in the
+	 * list of notifications of the fromUser or -1 if not found.
+	 * 
+	 * @param fromUser the user which stores the list of notifications
+	 * @param toUser the user which notification should be found
+	 * @return the index of the user or -1
+	 */
 	public int getIndexOfNote(User fromUser, User toUser) {
 		List<Notification> notes = toUser.getNotifications();
 		for(int i=0; i<notes.size(); i++) {
