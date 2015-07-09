@@ -22,7 +22,8 @@ public class HomeCtrl {
 	}
 
 	/**
-	 * Returns a new croak containing the given text
+	 * Returns a new croak containing the given text and 
+	 * persists it to the current session
 	 * 
 	 * @param text the text from the croak
 	 * @return a new croak with the given text
@@ -62,10 +63,11 @@ public class HomeCtrl {
 	}
 	
 	/**
-	 * only for testing
+	 * Returns a list of all selfmade croaks
+	 * 
 	 * @return returns all selfmade croaks
 	 */
-	public LinkedList<Croak> loadOnwCroaks() {
+	public LinkedList<Croak> loadOwnCroaks() {
 		LinkedList<Croak> result = new LinkedList<Croak>();
 
 		try {
