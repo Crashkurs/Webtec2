@@ -1,5 +1,6 @@
 package tu.dortmund.de.webtec2.services;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedList;
 
@@ -46,6 +47,7 @@ public class HomeCtrl {
 		LinkedList<User> user = new LinkedList<User>();
 		LinkedList<Croak> result = new LinkedList<Croak>();
 
+		user.add(globalctrl.getCurrentUser());
 		user.addAll(globalctrl.getCurrentUser().getFollowing());
 		try {
 			for (int i = 0; i < user.size(); i++) 
@@ -53,7 +55,7 @@ public class HomeCtrl {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-		
+		Collections.sort(result);
 		return result;
 	}
 	
@@ -70,7 +72,7 @@ public class HomeCtrl {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-
+		Collections.sort(result);
 		return result;
 	}
 	

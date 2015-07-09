@@ -14,7 +14,7 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.beaneditor.Validate;
 
 @Entity
-public class Croak {
+public class Croak implements Comparable<Croak>{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -81,5 +81,9 @@ public class Croak {
 			format = "hh:mm";
 		}
 		return new SimpleDateFormat(format).format(time);
+	}
+
+	public int compareTo(Croak o) {
+		return o.getTime().compareTo(time);
 	}
 }

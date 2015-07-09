@@ -1,5 +1,6 @@
 package tu.dortmund.de.webtec2.services;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.shiro.SecurityUtils;
@@ -122,6 +123,7 @@ public class GlobalCtrl {
 
 		// Execute the query and return it
 		List<Croak> result = criteria.list();
+		Collections.sort(result);
 		return result;
 	}
 	
