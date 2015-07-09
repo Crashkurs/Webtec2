@@ -1,7 +1,9 @@
 package tu.dortmund.de.webtec2.services;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.tapestry5.hibernate.HibernateSessionManager;
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
@@ -25,6 +27,9 @@ public class RegisterCtrl {
 	 * @throws IllegalArgumentException if the passwords do not match or a user with the given name already exists
 	 */
 	public User createNewUser(String userName, String pw, String pwRepeat) throws IllegalArgumentException {
+		if(userName == null || pw == null || pwRepeat == null) {
+			throw new IllegalArgumentException("you have to fill all textfields");
+		}
 		Session session = hibernateSessionManager.getSession();
 		if(!pw.equals(pwRepeat)) {
 			throw new IllegalArgumentException("passwords do not match");
@@ -49,15 +54,25 @@ public class RegisterCtrl {
 	 * @param userName the name of the user
 	 * @throws IllegalArgumentException if no user with the given name exists
 	 */
+	@RequiresPermissions(value = {"delete:user"})
 	public void deleteUser(String userName) throws IllegalArgumentException {
 		Session session = hibernateSessionManager.getSession();
 		
 		Criteria criteria = session.createCriteria(User.class);
 		criteria.add(Restrictions.eq("name", userName));
 		User user = (User) criteria.uniqueResult();
+		
 		if(user == null) {
 			throw new IllegalArgumentException("user with this name does not exist");
 		}
+		
+		for(User followings : user.getFollowing()) {
+			followings.getFollowers().remove(user);
+		}
+		
+		Query query = session.createQuery("delete Croak c where c.user = :user");
+		query.setString("user", user.getName());
+		query.executeUpdate();
 		
 		session.delete(user);
 		hibernateSessionManager.commit();

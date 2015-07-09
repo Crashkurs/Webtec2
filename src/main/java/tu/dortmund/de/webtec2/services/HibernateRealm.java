@@ -40,9 +40,7 @@ public class HibernateRealm extends AuthorizingRealm{
 		AuthorizationInfo info = new SimpleAuthorizationInfo();
 		if(principals.getPrimaryPrincipal() instanceof User) {
 			User user = (User)principals.getPrimaryPrincipal();
-			for(String permission : user.getPermissions()) {
-				info.getStringPermissions().add(permission);
-			}
+			info = new SimpleAuthorizationInfo(user.getRoles());
 		}else {
 			logger.warn("Primary principal is not of type User - no permissions added.");
 		}

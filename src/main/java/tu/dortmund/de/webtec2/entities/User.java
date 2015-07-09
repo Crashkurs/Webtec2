@@ -1,9 +1,10 @@
 package tu.dortmund.de.webtec2.entities;
 
-import java.util.Collection;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -44,7 +45,8 @@ public class User {
 	private List<Notification> notes;
 	
 	@ElementCollection
-	private Collection<String> permissions;
+	@LazyCollection(LazyCollectionOption.FALSE)
+	private Set<String> roles;
 	
 	/**
 	 * Default constructor for hibernate
@@ -59,12 +61,12 @@ public class User {
 		this.following = new LinkedList<User>();
 		this.followers = new LinkedList<User>();
 		this.notes = new LinkedList<Notification>();
-		permissions = new LinkedList<String>();
+		roles = new HashSet<String>();
 	}
 	
-	public User(String name, String password, Collection<String> permissions) {
+	public User(String name, String password, Set<String> permissions) {
 		this(name, password);
-		this.permissions = permissions;
+		this.roles = permissions;
 	}
 
 	public String getPassword() {
@@ -99,8 +101,8 @@ public class User {
 		return notes;
 	}
 
-	public Collection<String> getPermissions() {
-		return permissions;
+	public Set<String> getRoles() {
+		return roles;
 	}
 	
 	

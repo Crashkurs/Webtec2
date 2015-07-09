@@ -2,6 +2,10 @@
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
       xmlns:p="tapestry:parameter">
       
+    <t:if test="canDeleteUser">
+    	Du bist als Admin eingeloggt: <t:actionlink t:id="deleteAll">Loesche alle User</t:actionlink>
+   	</t:if>  
+      
 	<t:form>
 	
 	<t:errors/>
@@ -51,6 +55,7 @@
 				    <p class="list-group-item-text">empfiehlt Dir, ihm zu folgen!</p>
 				  
 				  </t:pagelink> 
+				  <t:actionlink t:id="deleteNote" context="${note.fromuser}">X</t:actionlink>
 				</div>
 			</li>
 			</t:loop>

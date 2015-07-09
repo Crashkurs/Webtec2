@@ -5,21 +5,26 @@ import java.util.List;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.tapestry5.hibernate.HibernateSessionManager;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
 import tu.dortmund.de.webtec2.entities.Croak;
+import tu.dortmund.de.webtec2.entities.Notification;
 import tu.dortmund.de.webtec2.entities.User;
 
 @SuppressWarnings("unchecked")
 public class GlobalCtrl {
 
 	private HibernateSessionManager hibernateSessionManager;
+	
+	private RegisterCtrl registerCtrl;
 
-	public GlobalCtrl(HibernateSessionManager hibernateSessionManager) {
+	public GlobalCtrl(HibernateSessionManager hibernateSessionManager, RegisterCtrl registerCtrl) {
 		this.hibernateSessionManager = hibernateSessionManager;
+		this.registerCtrl = registerCtrl;
 	}
 	
 	/**
@@ -119,6 +124,47 @@ public class GlobalCtrl {
 		List<Croak> result = criteria.list();
 		return result;
 	}
+	
+	/**
+	 * Deletes all users and followers.
+	 */
+	@RequiresRoles("admin")
+	public void deleteAllUser() {
+		Session session = this.hibernateSessionManager.getSession();
+		for(User user : getAllUser()) {
+			boolean isAdmin = false;
+			for(String roles : user.getRoles()) {
+				if(roles.equals("admin")) {
+					isAdmin = true;
+				}
+			}
+			if(!isAdmin) {
+				System.out.println("Delete user");
+				registerCtrl.deleteUser(user.getName());
+			}else {
+				user.getFollowers().clear();
+				user.getFollowing().clear();
+				user.getNotifications().clear();
+				session.update(user);
+			}
+		}
+	}
+	
+	/**
+	 * Returns all users currently in the database
+	 * 
+	 * @return the list of all users
+	 */
+	public List<User> getAllUser() {
+		Session session = this.hibernateSessionManager.getSession();
+		
+		// Create the query
+		Criteria criteria = session.createCriteria(User.class);
+
+		// Execute the query and return it
+		List<User> result = criteria.list();
+		return result;
+	}
 
 	/**
 	 * Returns the current user if logged in.
@@ -173,5 +219,23 @@ public class GlobalCtrl {
 		// Execute the query and return it
 		List<User> result = criteria.list();
 		return result;
+	}
+
+	public int getIndexOfUser(List<User> users, User user) {
+		for(int i=0; i<users.size(); i++){
+			if(users.get(i).getName().equals(user.getName())){
+				return i;
+			}
+		}
+		return -1;
+	}
+	
+	public int getIndexOfNote(User fromUser, User toUser) {
+		List<Notification> notes = toUser.getNotifications();
+		for(int i=0; i<notes.size(); i++) {
+			if(notes.get(i).getFromUser().equals(fromUser.getName()))
+				return i;
+		}
+		return -1;
 	}
 }

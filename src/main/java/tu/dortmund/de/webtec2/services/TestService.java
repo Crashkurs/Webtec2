@@ -33,6 +33,7 @@ public class TestService {
 			Date time = new Date();
 			
 			User admin = registerCtrl.createNewUser("admin", "admin", "admin");
+			admin.getRoles().add("admin");
 			User test = registerCtrl.createNewUser("test", "test", "test");
 			User test2 = registerCtrl.createNewUser("test2", "test2", "test2");
 			//Test User folgt Admin User und vice versa

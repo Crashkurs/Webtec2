@@ -11,6 +11,7 @@ import org.apache.tapestry5.services.PageRenderLinkSource;
 
 import tu.dortmund.de.webtec2.entities.Croak;
 import tu.dortmund.de.webtec2.entities.User;
+import tu.dortmund.de.webtec2.services.GlobalCtrl;
 import tu.dortmund.de.webtec2.services.ProfileCtrl;
 
 public class Profile {
@@ -50,21 +51,23 @@ public class Profile {
 	
 	@Inject
 	private ProfileCtrl profileCtrl;
+	
+	@Inject
+	private GlobalCtrl globalCtrl;
 
 	void onActivate(String userName) {
 		currentUser = profileCtrl.loadUser();
 		profileUser = profileCtrl.loadUser(userName);
 		
 		if(profileUser != null) {
-			croaks = profileCtrl.loadCroaks(profileUser);
+			croaks = globalCtrl.loadCroaks(profileUser);
 			countFollower = profileUser.getFollowers().size();
-			isOwnProfile = profileUser.getName().equals(currentUser.getName())
-							&& currentUser != null;
-			isFollower = (profileCtrl.getIndexOfUser(profileUser.getFollowing(), currentUser) != -1
-							|| profileCtrl.getIndexOfNote(currentUser, profileUser) != -1)
-							&& !(isOwnProfile || currentUser == null);
-			isFollowing = profileCtrl.getIndexOfUser(profileUser.getFollowers(), currentUser) != -1
-							&& !(isOwnProfile || currentUser == null);
+			isOwnProfile = currentUser != null && profileUser.getName().equals(currentUser.getName());
+			isFollower = !(isOwnProfile || currentUser == null) && 
+						 (globalCtrl.getIndexOfUser(profileUser.getFollowing(), currentUser) != -1
+						 || globalCtrl.getIndexOfNote(currentUser, profileUser) != -1);
+			isFollowing = !(isOwnProfile || currentUser == null) &&  
+					globalCtrl.getIndexOfUser(profileUser.getFollowers(), currentUser) != -1;
 		}
 	}
 	
@@ -88,5 +91,14 @@ public class Profile {
 		Link profileLink = pageRenderLink.createPageRenderLinkWithContext(Profile.class, userName);
 		return profileLink;
 	}
-
+	
+	@CommitAfter
+	Object onActionFromDeleteUser(String profileName) {
+		Link link;
+		if(profileCtrl.deleteUser())
+			link = pageRenderLink.createPageRenderLink(Register.class);
+		else
+			link = pageRenderLink.createPageRenderLinkWithContext(Profile.class, profileName);
+		return link;
+	}
 }
