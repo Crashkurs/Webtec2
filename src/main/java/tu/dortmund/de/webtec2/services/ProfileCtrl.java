@@ -26,10 +26,23 @@ public class ProfileCtrl {
 		
 	}
 	
-	public User loadUser(String name) {
-		return globalCtrl.findUserByName(name);
+	/**
+	 * Finds the user with the given username by calling findUserByName from GlobalCtrl
+	 * 
+	 * @param userName
+	 * 			name of the user to be loaded
+	 * 
+	 * @return the requested user or null if he doesn't exist
+	 */
+	public User loadUser(String userName) {
+		return globalCtrl.findUserByName(userName);
 	}
 	
+	/**
+	 * Retrieves the currently logged in user
+	 * 
+	 * @return the user currently logged in or null if he isn't logged in
+	 */
 	public User loadUser(){
 		try {
 			return globalCtrl.getCurrentUser();
@@ -38,6 +51,14 @@ public class ProfileCtrl {
 		}
 	}
 	
+	/**
+	 * The given user gets a notification from the logged in user to follow him.
+	 * Will return false if the given user already follows the logged in user or already has a notification.
+	 * 
+	 * @param userName
+	 * 			the user to be followed
+	 * @return true if following was successful, false otherwise
+	 */
 	public boolean followMe(String userName) {
 		Session session = hibernateSessionManager.getSession();
 		User fromUser = globalCtrl.getCurrentUser();
@@ -59,6 +80,16 @@ public class ProfileCtrl {
 		return true;
 	}
 	
+	/**
+	 * The logged in user will follow the given user
+	 * and if the logged in user has a notification from the given user
+	 * the notification will be deleted.
+	 * Will return false if the logged in user already follows the given user.
+	 * 
+	 * @param userName
+	 * 			the user to be followed
+	 * @return true if following was successful, false otherwise
+	 */
 	public boolean follow(String userName) {
 		Session session = hibernateSessionManager.getSession();
 		User fromUser = globalCtrl.getCurrentUser();
@@ -77,6 +108,14 @@ public class ProfileCtrl {
 		return true;
 	}
 	
+	/**
+	 * The logged in user will no longer follow the given user.
+	 * Will return false if the logged in user doesn't follow the given user.
+	 * 
+	 * @param userName
+	 * 			the to be unfollowed user
+	 * @return true if unfollowing was successful
+	 */
 	public boolean unfollow(String userName) {
 		Session session = hibernateSessionManager.getSession();
 		User fromUser = globalCtrl.getCurrentUser();
@@ -93,6 +132,11 @@ public class ProfileCtrl {
 		return false;
 	}
 	
+	/**
+	 * The logged in user will be deleted and logged out
+	 * 
+	 * @return false if the user is not logged in, true if deleting and logging out was successful
+	 */
 	public boolean deleteUser() {
 		try{
 			Session session = hibernateSessionManager.getSession();
@@ -121,6 +165,9 @@ public class ProfileCtrl {
 		}
 	}
 	
+	/**
+	 * Deletes all notifications the logged in user has sent.
+	 */
 	private void deleteNotes() {
 		Session session = hibernateSessionManager.getSession();
 		Criteria criteria = session.createCriteria(User.class);
