@@ -3,8 +3,11 @@ package tu.dortmund.de.webtec2.pages;
 import java.util.LinkedList;
 
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.tapestry5.Link;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.services.PageRenderLinkSource;
 
 import tu.dortmund.de.webtec2.entities.Croak;
 import tu.dortmund.de.webtec2.entities.Notification;
@@ -33,6 +36,9 @@ public class Home {
 
 	@Property
 	private String croakInput;
+	
+    @Inject
+    PageRenderLinkSource pageRenderLink;
 
 	@Inject
 	private HomeCtrl homectrl;
@@ -56,5 +62,12 @@ public class Home {
 			croaks.add(homectrl.createCroak(s));
 		}
 		return null;
+	}
+	
+	@CommitAfter
+	Object onActionFromDeleteNote(String userName) {
+		homectrl.deleteNote(userName);
+		Link homeLink = pageRenderLink.createPageRenderLink(Home.class);
+		return homeLink;
 	}
 }

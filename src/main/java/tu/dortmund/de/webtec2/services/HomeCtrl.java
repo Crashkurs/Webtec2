@@ -3,6 +3,7 @@ package tu.dortmund.de.webtec2.services;
 import java.util.Date;
 import java.util.LinkedList;
 
+import org.apache.shiro.authc.AuthenticationException;
 import org.apache.tapestry5.hibernate.HibernateSessionManager;
 import org.hibernate.Session;
 
@@ -77,5 +78,21 @@ public class HomeCtrl {
 		}
 
 		return result;
+	}
+	
+	public boolean deleteNote(String userName) {
+		try {
+			User currentUser = globalctrl.getCurrentUser();
+			User fromUser = globalctrl.findUserByName(userName);
+			if(fromUser != null) {
+				int index = globalctrl.getIndexOfNote(fromUser, currentUser);
+				if(index != -1) {
+					currentUser.getNotifications().remove(index);
+					hibernateSessionManager.getSession().merge(currentUser);
+					return true;
+				}
+			}
+		} catch(AuthenticationException e) {}
+		return false;
 	}
 }

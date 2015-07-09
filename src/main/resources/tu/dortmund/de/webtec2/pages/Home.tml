@@ -51,6 +51,7 @@
 				    <p class="list-group-item-text">empfiehlt Dir, ihm zu folgen!</p>
 				  
 				  </t:pagelink> 
+				  <t:actionlink t:id="deleteNote" context="${note.fromuser}">X</t:actionlink>
 				</div>
 			</li>
 			</t:loop>

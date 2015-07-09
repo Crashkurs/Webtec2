@@ -5,23 +5,20 @@
       
       <t:zone id="profile">
 	      <t:if test="profileUser">
-	      	<t:if test="currentUser">		      
-		      <t:if test="!isFollowing">
-		      	<t:actionlink t:id="follow" context="profileUser.name" style="color:white;" class="myButton">Folgen</t:actionlink>
-
-		      	<p:else>
-		      		<t:if test="!isOwnProfile">
-		      				<t:actionlink t:id="unfollow" context="profileUser.name" class="myButton">Nicht mehr folgen</t:actionlink>
-		      		</t:if>
-		      	</p:else>
-		      </t:if>
-		      <t:if test="!isFollower">
-		      	<p><t:actionlink t:id="followMe" context="profileUser.name">Folg mir!</t:actionlink></p>
-		      	<p:else>
-		      		<t:if test="!isOwnProfile">
-		      			<p>${profileUser.name} folgt Dir bereits, oder hat eine Einladung Dir zu folgen.</p>
-		      		</t:if>
-		      	</p:else>
+	      	<t:if test="currentUser">
+	      	  <t:if test="!isOwnProfile">		      
+			      <t:if test="!isFollowing">
+			      	<t:actionlink t:id="follow" context="profileUser.name" class="myButton">Folgen</t:actionlink>
+			      	<p:else>
+			      		<t:actionlink t:id="unfollow" context="profileUser.name" class="myButton">Nicht mehr folgen</t:actionlink>
+			      	</p:else>
+			      </t:if>
+			      <t:if test="!isFollower">
+			      	<p><t:actionlink t:id="followMe" context="profileUser.name" class="myButton">Folg mir!</t:actionlink></p>
+			      	<p:else>
+			      		<p>${profileUser.name} folgt Dir bereits, oder hat eine Einladung Dir zu folgen.</p>
+			      	</p:else>
+			      </t:if>
 		      </t:if>
 		    </t:if>
 		      	<p>Croaks</p>
@@ -72,6 +69,9 @@
 		      	</t:if>	
 
 		      <p:else>Der Nutzer existiert nicht.</p:else>
+	      </t:if>
+	      <t:if test="isOwnProfile">
+	      	<p><t:actionlink t:id="deleteUser" context="profileUser.name" class="myButton">Account loeschen</t:actionlink> (Achtung, nicht wiederherstellbar!)</p>
 	      </t:if>
       </t:zone>
 </html>

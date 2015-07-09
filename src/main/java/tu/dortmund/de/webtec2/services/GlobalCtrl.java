@@ -11,6 +11,7 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
 import tu.dortmund.de.webtec2.entities.Croak;
+import tu.dortmund.de.webtec2.entities.Notification;
 import tu.dortmund.de.webtec2.entities.User;
 
 @SuppressWarnings("unchecked")
@@ -173,5 +174,23 @@ public class GlobalCtrl {
 		// Execute the query and return it
 		List<User> result = criteria.list();
 		return result;
+	}
+	
+	public int getIndexOfUser(List<User> users, User user) {
+		for(int i=0; i<users.size(); i++){
+			if(users.get(i).getName().equals(user.getName())){
+				return i;
+			}
+		}
+		return -1;
+	}
+	
+	public int getIndexOfNote(User fromUser, User toUser) {
+		List<Notification> notes = toUser.getNotifications();
+		for(int i=0; i<notes.size(); i++) {
+			if(notes.get(i).getFromUser().equals(fromUser.getName()))
+				return i;
+		}
+		return -1;
 	}
 }
