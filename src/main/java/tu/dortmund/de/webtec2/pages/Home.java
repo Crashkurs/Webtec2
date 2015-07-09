@@ -34,15 +34,12 @@ public class Home {
 	@Property
 	private String croakInput;
 
-//	@Component
-//	private BeanEditForm errorform;
-	
 	@Inject
 	private HomeCtrl homectrl;
 
 	public void onActivate() {
 		try {
-			croaks = homectrl.loadOnwCroaks();
+			croaks = homectrl.loadOwnCroaks();
 			notes = homectrl.loadNotifications();
 			followedCroaks = homectrl.loadFollowedCroaks();
 		} catch (NullPointerException ex) {
