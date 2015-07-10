@@ -60,12 +60,10 @@
 				<div class="list-group">
 				  <t:actionlink t:id="deleteNote" context="${note.fromuser}" class="list-group-item">X</t:actionlink>
 				  <t:pagelink page="profile" context="${note.fromuser}" class="list-group-item">
-				  	
 				    <h4 class="list-group-item-heading">${note.fromuser}</h4>
 				    <p class="list-group-item-text">empfiehlt Dir, ihm zu folgen!</p>
-				  
 				  </t:pagelink> 
-				  </div>
+				 </div>
 			</li>
 			</t:loop>
 			<p:else>

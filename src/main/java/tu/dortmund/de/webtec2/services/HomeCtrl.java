@@ -9,7 +9,6 @@ import org.apache.tapestry5.hibernate.HibernateSessionManager;
 import org.hibernate.Session;
 
 import tu.dortmund.de.webtec2.entities.Croak;
-import tu.dortmund.de.webtec2.entities.Notification;
 import tu.dortmund.de.webtec2.entities.User;
 
 public class HomeCtrl {

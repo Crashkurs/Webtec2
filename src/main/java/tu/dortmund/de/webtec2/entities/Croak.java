@@ -26,7 +26,7 @@ public class Croak implements Comparable<Croak>{
 	@Property
 	private User user;
 	
-	@Validate("minlength=1,maxlength=255")
+	@Validate("minlength=1,maxlength=140")
 	@Property
 	private String text;
 
