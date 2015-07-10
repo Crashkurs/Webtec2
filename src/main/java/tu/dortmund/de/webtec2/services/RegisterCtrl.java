@@ -1,6 +1,6 @@
 package tu.dortmund.de.webtec2.services;
 
-import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.tapestry5.hibernate.HibernateSessionManager;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
@@ -54,7 +54,7 @@ public class RegisterCtrl {
 	 * @param userName the name of the user
 	 * @throws IllegalArgumentException if no user with the given name exists
 	 */
-	@RequiresPermissions(value = {"delete:user"})
+	@RequiresRoles(value = {"admin"})
 	public void deleteUser(String userName) throws IllegalArgumentException {
 		Session session = hibernateSessionManager.getSession();
 		
@@ -69,7 +69,8 @@ public class RegisterCtrl {
 		for(User followings : user.getFollowing()) {
 			followings.getFollowers().remove(user);
 		}
-		
+		user.getFollowers().clear();
+		user.getFollowing().clear();
 		Query query = session.createQuery("delete Croak c where c.user = :user");
 		query.setString("user", user.getName());
 		query.executeUpdate();

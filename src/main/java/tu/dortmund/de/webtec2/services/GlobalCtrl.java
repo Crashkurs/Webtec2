@@ -137,15 +137,20 @@ public class GlobalCtrl {
 		for(User user : getAllUser()) {
 			
 			if(user.getName().equals(currentUser.getName())) {
-				System.out.println("Clear admin attributes");
+				for(User follower : user.getFollowers()) {
+					follower.getFollowing().remove(user);
+				}
 				user.getFollowers().clear();
+				for(User following : user.getFollowing()) {
+					following.getFollowers().remove(user);
+				}
 				user.getFollowing().clear();
 				for(Notification note : user.getNotifications()) {
 					session.delete(note);
 				}
-				session.save(user);
+				user.getNotifications().clear();
+				session.update(user);
 			}else {
-				System.out.println("Delete user");
 				registerCtrl.deleteUser(user.getName());
 			}
 		}
@@ -178,8 +183,11 @@ public class GlobalCtrl {
 		if (currentUser == null) {
 			throw new AuthenticationException("User is not logged in.");
 		}
+		User result = (User) this.hibernateSessionManager.getSession().createCriteria(User.class)
+				.add(Restrictions.eq("name", currentUser.getName()))
+				.uniqueResult();
 
-		return currentUser;
+		return result;
 	}
 
 	/**

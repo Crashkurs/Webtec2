@@ -2,6 +2,8 @@
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
       xmlns:p="tapestry:parameter">
       
+    <h3>Willkommen, ${currentUser.name}!</h3>
+      
     <t:if test="canDeleteUser">
     	Du bist als Admin eingeloggt: 
     	<t:actionlink t:id="deleteAll">
@@ -17,6 +19,7 @@
 	</div>
 	<!--Deine Freunde haben folgendes gecroakt:-->
 	<ul style="list-style-type:none;padding:0px;">
+	  <t:if test="followedCroaks">
 		<t:loop source="followedCroaks" value="followerCroak">
 		<li>
 			<blockquote>
@@ -30,6 +33,10 @@
 			</blockquote>
 		</li>
 		</t:loop>
+		<p:else>
+		  Es existieren noch keine Croaks von Dir oder anderen, denen du folgst.
+		</p:else>
+	  </t:if>
 	</ul>
 	
 	<!--<ul>
@@ -47,19 +54,24 @@
 	<p:sidebar>
       	<h1>Meldungen</h1>
 		<ul style="list-style-type:none;padding:0px;">
+		  <t:if test="notes">
 			<t:loop source="notes" value="note">
 			<li>
 				<div class="list-group">
+				  <t:actionlink t:id="deleteNote" context="${note.fromuser}" class="list-group-item">X</t:actionlink>
 				  <t:pagelink page="profile" context="${note.fromuser}" class="list-group-item">
 				  	
 				    <h4 class="list-group-item-heading">${note.fromuser}</h4>
 				    <p class="list-group-item-text">empfiehlt Dir, ihm zu folgen!</p>
 				  
 				  </t:pagelink> 
-				  <t:actionlink t:id="deleteNote" context="${note.fromuser}">X</t:actionlink>
-				</div>
+				  </div>
 			</li>
 			</t:loop>
+			<p:else>
+			  Du hast zurzeit keine Meldungen.
+			</p:else>
+		  </t:if>
 		</ul>
     </p:sidebar>
 </html>

@@ -7,6 +7,7 @@ import org.apache.tapestry5.alerts.AlertManager;
 import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.beaneditor.Validate;
+import org.apache.tapestry5.corelib.components.Form;
 import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -37,6 +38,9 @@ public class Register {
     @InjectComponent
     Zone registerForm;
     
+    @InjectComponent
+    private Form registerUser;
+    
 	@Inject
 	PageRenderLinkSource pageRender;
 	
@@ -53,7 +57,7 @@ public class Register {
 		try{
 			registerCtrl.createNewUser(userName, password, password2);
 		} catch(IllegalArgumentException ex) {
-			alertManager.error(ex.getMessage());
+			registerUser.recordError(ex.getMessage());
 			return registerForm;
 		}
 		return Login.class;

@@ -3,9 +3,9 @@
       xmlns:p="tapestry:parameter">
       <div class="row" id="jdRegister">
       <t:zone t:id="registerForm">
-	   
       	<div class="col-xs-12 col-sm-10 col-md-8 col-lg-6">
 	      <t:form t:id="registerUser" t:zone="^">
+	   		<t:errors/>
 	      	<p>
 	      		<t:label for="username"/>
 	      		<t:textfield t:id="username" t:validate="regexp" t:value="username" />

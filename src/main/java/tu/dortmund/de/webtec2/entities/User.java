@@ -30,8 +30,7 @@ public class User {
 	@Validate("required")
 	private String password;
 	
-	@ManyToMany
-	@JoinTable(name="Following")
+	@ManyToMany(mappedBy = "followers")
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<User> following;
 
@@ -40,7 +39,7 @@ public class User {
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<User> followers;
 	
-	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
+	@OneToMany(cascade = {CascadeType.ALL}, orphanRemoval = true)
 	@Fetch(value = FetchMode.SUBSELECT)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Notification> notes;

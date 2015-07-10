@@ -5,7 +5,9 @@ import java.util.List;
 
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresRoles;
+import org.apache.tapestry5.Link;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.PageRenderLinkSource;
 
@@ -47,17 +49,20 @@ public class Home {
 	
     @Inject
     PageRenderLinkSource pageRenderLink;
+    
+    @Property
+    private User currentUser;
 	
 	@Property
 	private boolean canDeleteUser = false;
 
 	public void onActivate() {
 		try {
-			User user = globalCtrl.getCurrentUser();
+			currentUser = globalCtrl.getCurrentUser();
 			croaks = homectrl.loadOwnCroaks();
-			notes = user.getNotifications();
+			notes = currentUser.getNotifications();
 			followedCroaks = homectrl.loadFollowedCroaks();
-			for(String roles : user.getRoles()) {
+			for(String roles : currentUser.getRoles()) {
 				if(roles.equals("admin")) {
 					canDeleteUser = true;
 				}
@@ -83,4 +88,11 @@ public class Home {
 		}
 		return null;
 	}	
+	
+	@CommitAfter
+	Object onActionFromDeleteNote(String userName) {
+		homectrl.deleteNote(userName);
+		Link homeLink = pageRenderLink.createPageRenderLink(Home.class);
+		return homeLink;
+	}
 }
