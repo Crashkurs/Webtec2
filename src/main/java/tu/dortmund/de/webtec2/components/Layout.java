@@ -3,6 +3,7 @@ package tu.dortmund.de.webtec2.components;
 import java.util.List;
 
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.tapestry5.BindingConstants;
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.ComponentResources;
@@ -83,6 +84,7 @@ public class Layout
     		this.user = globalCtrl.getCurrentUser();
     }
     
+    @RequiresAuthentication
     Object onActionFromLogout() {
     	globalCtrl.logout();
     	return Login.class;

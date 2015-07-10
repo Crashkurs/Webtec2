@@ -133,21 +133,20 @@ public class GlobalCtrl {
 	@RequiresRoles("admin")
 	public void deleteAllUser() {
 		Session session = this.hibernateSessionManager.getSession();
+		User currentUser = getCurrentUser();
 		for(User user : getAllUser()) {
-			boolean isAdmin = false;
-			for(String roles : user.getRoles()) {
-				if(roles.equals("admin")) {
-					isAdmin = true;
-				}
-			}
-			if(!isAdmin) {
-				System.out.println("Delete user");
-				registerCtrl.deleteUser(user.getName());
-			}else {
+			
+			if(user.getName().equals(currentUser.getName())) {
+				System.out.println("Clear admin attributes");
 				user.getFollowers().clear();
 				user.getFollowing().clear();
-				user.getNotifications().clear();
-				session.update(user);
+				for(Notification note : user.getNotifications()) {
+					session.delete(note);
+				}
+				session.save(user);
+			}else {
+				System.out.println("Delete user");
+				registerCtrl.deleteUser(user.getName());
 			}
 		}
 	}

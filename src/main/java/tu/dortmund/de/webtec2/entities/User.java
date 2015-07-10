@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -39,7 +40,7 @@ public class User {
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<User> followers;
 	
-	@OneToMany
+	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
 	@Fetch(value = FetchMode.SUBSELECT)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Notification> notes;
