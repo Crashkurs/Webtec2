@@ -8,7 +8,6 @@ import org.apache.shiro.authc.AuthenticationException;
 import org.apache.tapestry5.hibernate.HibernateSessionManager;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.hibernate.criterion.Restrictions;
 
 import tu.dortmund.de.webtec2.entities.Croak;
 import tu.dortmund.de.webtec2.entities.Notification;
@@ -63,7 +62,8 @@ public class ProfileCtrl {
 		Session session = hibernateSessionManager.getSession();
 		User fromUser = globalCtrl.getCurrentUser();
 		User toUser = globalCtrl.findUserByName(userName);
-		
+		if(fromUser.getName().equals(userName) || toUser == null)
+			return false;
 		List<User> fromUserFollowers = fromUser.getFollowers();
 		//If the toUser already follows fromUser, no notification necessary
 		if(globalCtrl.getIndexOfUser(fromUserFollowers, toUser) != -1)
@@ -94,6 +94,8 @@ public class ProfileCtrl {
 		Session session = hibernateSessionManager.getSession();
 		User fromUser = globalCtrl.getCurrentUser();
 		User toUser = globalCtrl.findUserByName(userName);
+		if(fromUser.getName().equals(userName) || toUser == null)
+			return false;
 		List<User> toUserFollowers = toUser.getFollowers();
 		if(globalCtrl.getIndexOfUser(toUserFollowers, fromUser) != -1)
 			return false;
@@ -120,6 +122,8 @@ public class ProfileCtrl {
 		Session session = hibernateSessionManager.getSession();
 		User fromUser = globalCtrl.getCurrentUser();
 		User toUser = globalCtrl.findUserByName(userName);
+		if(fromUser.getName().equals(userName) || toUser == null)
+			return false;
 		int fromUserIndex = globalCtrl.getIndexOfUser(toUser.getFollowers(), fromUser);
 		int toUserIndex = globalCtrl.getIndexOfUser(fromUser.getFollowing(), toUser);
 		if(fromUserIndex != -1 && toUserIndex != -1){
