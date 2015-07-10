@@ -1,20 +1,21 @@
-<html t:type="layout" title="home"
+<html t:type="layout" title="Home"
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
       xmlns:p="tapestry:parameter">
       
     <t:if test="canDeleteUser">
-    	Du bist als Admin eingeloggt: <t:actionlink t:id="deleteAll">Loesche alle User</t:actionlink>
+    	Du bist als Admin eingeloggt: 
+    	<t:actionlink t:id="deleteAll">
+    		Loesche alle User
+    	</t:actionlink>
    	</t:if>  
-      
-	<t:form>
-	
-	<t:errors/>
-            <p>
-            	<t:textField t:id="inputfield" value="croakInput" size="140"/>
-                <t:submit t:id="post" value="croaken" context="croakInput" />
-            </p>
-	</t:form>
-	<!--<p>Deine Freunde haben folgendes gecroakt:</p>-->
+   	<div class="row jdCroak">
+		<t:form>
+			<t:errors/>
+			<t:textField t:id="inputfield" value="croakInput" size="140"/>
+			<t:submit t:id="post" value="croaken" context="croakInput" />
+		</t:form>
+	</div>
+	<!--Deine Freunde haben folgendes gecroakt:-->
 	<ul style="list-style-type:none;padding:0px;">
 		<t:loop source="followedCroaks" value="followerCroak">
 		<li>

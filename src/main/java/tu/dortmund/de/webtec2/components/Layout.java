@@ -24,7 +24,10 @@ import tu.dortmund.de.webtec2.services.GlobalCtrl;
 /**
  * Layout component for pages of application webtec2.
  */
-@Import(stylesheet = {"context:layout/layout.css","context:layout/res/bootstrap-3.3.4-dist/js/bootstrap.min.js","context:layout/res/bootstrap-3.3.4-dist/css/bootstrap.min.css"})
+@Import(stylesheet = {	"context:layout/res/bootstrap-3.3.4-dist/css/bootstrap.min.css", 
+						"context:layout/custom.css"},
+		library ={		"context:layout/res/jquery.min.js",
+						"context:layout/res/bootstrap-3.3.4-dist/js/bootstrap.min.js"})
 public class Layout
 {
     /**

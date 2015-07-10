@@ -1,10 +1,10 @@
 <html t:type="layout" title="Register"
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
       xmlns:p="tapestry:parameter">
-      
+      <div class="row" id="jdRegister">
       <t:zone t:id="registerForm">
-	   <div class="row">
-      	<div class="col-md-5">
+	   
+      	<div class="col-xs-12 col-sm-10 col-md-8 col-lg-6">
 	      <t:form t:id="registerUser" t:zone="^">
 	      	<p>
 	      		<t:label for="username"/>
@@ -25,10 +25,11 @@
 	      	<t:submit t:id="register"/>
 	      </t:form>
       	</div>
-      </div>
+      
 	  </t:zone>
+	  </div>
 	  <p:sidebar>
-      	<h1>Du bist schon registriert? Logge dich ein!</h1>
+      	<h1>Du bist schon registriert? <br/>Logge dich ein!</h1>
       	<t:pagelink page="Login" class="myButton"><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span>    Zum Login</t:pagelink>
       	
       </p:sidebar>

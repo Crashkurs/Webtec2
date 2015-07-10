@@ -1,26 +1,11 @@
-<html t:type="layout" title="Profil"
+<html t:type="layout" title="Profil von ${profileUser.name}"
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
       xmlns:p="tapestry:parameter">
       
-      
       <t:zone id="profile">
-	      <t:if test="profileUser">
-	      	<t:if test="currentUser">
-	      	  <t:if test="!isOwnProfile">		      
-			      <t:if test="!isFollowing">
-			      	<t:actionlink t:id="follow" context="profileUser.name" class="myButton">Folgen</t:actionlink>
-			      	<p:else>
-			      		<t:actionlink t:id="unfollow" context="profileUser.name" class="myButton">Nicht mehr folgen</t:actionlink>
-			      	</p:else>
-			      </t:if>
-			      <t:if test="!isFollower">
-			      	<p><t:actionlink t:id="followMe" context="profileUser.name" class="myButton">Folg mir!</t:actionlink></p>
-			      	<p:else>
-			      		<p>${profileUser.name} folgt Dir bereits, oder hat eine Einladung Dir zu folgen.</p>
-			      	</p:else>
-			      </t:if>
-		      </t:if>
-		    </t:if>
+		<t:if test="profileUser">
+      	  <div class="row">
+      	  	<div class="col-lg-6">
 		      	<p>Croaks</p>
 		      	<ul style="list-style-type:none">
 			      	<t:loop source="croaks" value="croak">
@@ -37,24 +22,49 @@
 						</li>
 					</t:loop>
 				</ul>
+      	  	</div>
+      	  	<div class="col-lg-6">
+      	  		<div class="row">
+      	  		<img alt="image" class="img-circle circle-border" src="../layout/images/user_1.jpg" style="margin-right:10px"/>
+      	  		<t:if test="currentUser">
+	      	  		<t:if test="!isOwnProfile">		      
+			      		<t:if test="!isFollowing">
+			      			<t:actionlink t:id="follow" context="profileUser.name" class="myButton">Folgen</t:actionlink>
+			      		<p:else>
+			      			<t:actionlink t:id="unfollow" context="profileUser.name" class="myButton">Nicht mehr folgen</t:actionlink>
+			      		</p:else>
+					</t:if>
+					<t:if test="!isFollower">
+			      		<p><t:actionlink t:id="followMe" context="profileUser.name" class="myButton">Folg mir!</t:actionlink></p>
+			      	<p:else>
+			      		<p>${profileUser.name} folgt Dir bereits, oder hat eine Einladung Dir zu folgen.</p>
+			      	</p:else>
+			      	</t:if>
+				</t:if>
+		    	</t:if>
+		    	</div>
+		    	<div class="row">
+		      		<t:if test="isOwnProfile">
+		      			<p>Leute die Dir folgen:</p>
+		      			<p:else><h2>Leute die ${profileUser.name} folgen: ${countFollower}<span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></h2> </p:else>
+		      		</t:if>
+		      			<div class="list-group">
+		      				<ul style="list-style-type:none;">
+		      				<t:loop source="profileUser.followers" value="follower">
+		      					<li>
+			      						<img alt="image" class="img-circle circle-border" src="../layout/images/user_1.jpg" style="max-width:50px;max-height:50px;float:left;"/>
+			      						<t:pagelink page="profile" context="${follower.name}" >
+				      						<h2 style="color:white">${follower.name}</h2>
+				      					</t:pagelink>
+			      				</li>
+			      			</t:loop>
+			      			</ul>
+						</div>
+		    	</div>
+      	  	</div>
+      	  </div>
 
-		      	<t:if test="isOwnProfile">
-		      		<!--<p>Leute die Dir folgen</p>-->
-		      		<!--<p:else><h2>Leute die ${profileUser.name} folgen:</h2></p:else>-->
-		      	</t:if>
-		      	<h2><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span>${countFollower}</h2>
-		      	<div class="list-group">
-		      		<t:loop source="profileUser.followers" value="follower">
-		      			<div class="col-xs-2">
-			      			<h2 style="color:white">${follower.name}</h2>
-	                        <img alt="image" class="img-circle circle-border" src="http://bootdey.com/img/Content/user_1.jpg"/>
-	                           
-			      				<t:pagelink page="profile" context="${follower.name}" class="myButton">
-				      				Zum Profil
-				      			</t:pagelink>
-			      		</div>
-			      	</t:loop>
-				</div>
+
 				
 				
 		      	<t:if test="isOwnProfile">
@@ -66,8 +76,7 @@
 				      			</t:pagelink>
 				      	</t:loop>
 			      	</div>
-		      	</t:if>	
-
+		      </t:if>	
 		      <p:else>Der Nutzer existiert nicht.</p:else>
 	      </t:if>
 	      <t:if test="isOwnProfile">

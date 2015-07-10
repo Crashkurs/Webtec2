@@ -1,46 +1,32 @@
 <!DOCTYPE html>
-<!--
-
-
-Design by Free CSS Templates
-http://www.freecsstemplates.org
-Released for free under a Creative Commons Attribution 2.5 License
-
-Title      : Concrete (modified for Tapestry)
-Version    : 1.0
-Released   : 20080825
-Description: A Web 2.0 design with fluid width suitable for blogs and small websites.
--->
-        <html xmlns="http://www.w3.org/1999/xhtml"
+<html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
       xmlns:p="tapestry:parameter">
     <head>
+    	<script>jQuery.noConflict();</script>
         <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
         <title>${title}</title>
     </head>
-    <body class="container-fluid" style="background-image:url('/webtec2/layout/images/1429295_40383133.jpg');width:100%;height:100%;position:absolute;overflow:hidden;">
+    <body class="container-fluid">
         <!-- start header -->
         <div class="row">
-			<nav class="navbar navbar-default" style="background-color:white;border-radius:0;">
+			<nav class="navbar navbar-default" style="background-color:white;border-radius:0;height:62px;">
 			  <div class="container-fluid">
-			    <!-- Brand and toggle get grouped for better mobile display -->
+			    <!-- Mobile display toggle  START -->
 			    <div class="navbar-header">
 			      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-			        <span class="sr-only">Ausklappen</span>
 			        <span class="icon-bar"></span>
 			        <span class="icon-bar"></span>
 			        <span class="icon-bar"></span>
 			      </button>
-			      <t:pagelink page="login" style="color:#6e6e6e" class="navbar-brand">Croaky</t:pagelink>
+			      <div class="jdNavLogo">
+			      	<img src="/webtec2/layout/images/logo_low_dark.png"/>
+			      	<t:pagelink page="login" style="color:#6e6e6e" class="navbar-brand jdNavlink">Croaky</t:pagelink>
+			      </div>
 			    </div>
-			
-			    <!-- Collect the nav links, forms, and other content for toggling -->
+			    <!-- Mobile display toggle  END -->
+
 			    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-			      <!--<ul class="nav navbar-nav">
-			        <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-			        <li><a href="#">Link</a></li>
-			      </ul>-->
-			
 			      <t:form t:id="searchForm" class="navbar-form navbar-left">
 						<t:textfield t:id="searchField" t:value="searchFieldText" t:mixins="autocomplete"/>
 						<t:loop source="users" value="user">
@@ -55,10 +41,10 @@ Description: A Web 2.0 design with fluid width suitable for blogs and small webs
 		                    	<t:pagelink page="Home">Home</t:pagelink>
 		                   	</li>
 		                   	<li>
-		                    	<t:actionlink t:id="logout">Log out</t:actionlink>
+		                    	<t:pagelink page="Profile" context="user.name">Profile</t:pagelink>
 		                   	</li>
 		                    <li>
-		                    	<t:pagelink page="Profile" context="user.name">Profile</t:pagelink>
+		                    	<t:actionlink t:id="logout">Logout</t:actionlink>
 		                   	</li>
 		                   	<p:else>
 		                   		<li>
@@ -77,23 +63,22 @@ Description: A Web 2.0 design with fluid width suitable for blogs and small webs
 
         <!-- end header -->
         <!-- start page -->
-        <div class="row" style="color:white;height:100%;">
+        <div class="row jdContent">
         	<!-- start content-->
-        	<div class="col-md-6 col-md-offset-1 content vcenter">
-	                    <h2>${title}</h2>
-
-	                        <t:body/>
+        	<div class="col-xs-12 col-sm-7 col-md-7 col-lg-6 col-lg-offset-1 content vcenter">
+	        	<h2>${title}</h2>
+	            <t:body/>
         	</div>
         	<!-- end content-->
         	<!-- start sidebar-->
-        	<div class="col-md-3 col-md-offset-1 vcenter">
+        	<div class="col-xs-12 col-sm-5 col-md-5 col-lg-4 col-lg-offset-1 vcenter">
         		<t:delegate to="sidebar"/>
         	</div>
         	<!-- end sidebar-->
         </div>
         <!-- end page -->
         <!-- start footer -->
-        <footer class="footer" style="position:absolute;bottom:0;width:100%;height:60px;background-color:white;left:0;line-height:60px;">
+        <footer class="row jdFooter">
 	      <div class="container" style="text-align:center;">
 	        <p class="text-muted">&copy;2015 tu.dortmund.de. All Rights Reserved.</p>
 	      </div>

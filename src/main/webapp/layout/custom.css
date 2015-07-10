@@ -1,0 +1,183 @@
+.vcenter {
+    margin-top:5%;
+}
+
+.content #tynamoPassword{
+	color:#6e6e6e;
+}
+.content #tynamoLogin{
+	color:#6e6e6e;
+}
+
+
+.myButton{
+	padding: 10px 16px;
+	font-size: 18px;
+	line-height: 1.3333333;
+	border-radius: 6px;
+	color: #333;
+	background-color: #fff;
+	border-color: #ccc;
+	display: inline-block;
+	margin-bottom: 0;
+	font-weight: 400;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	-ms-touch-action: manipulation;
+	touch-action: manipulation;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	background-image: none;
+	border: 1px solid transparent;
+	border-radius: 4px;
+}
+
+html{
+	height:100%;
+}
+
+body{
+	background-image:url('../layout/images/1429295_40383133.jpg');
+	width:100%;
+	height:100%;
+}
+
+.jdFooter{
+	background-color:white;
+	line-height:60px;
+	margin-top:10px;
+}
+
+.jdContent{
+	color:white;
+	min-height:100%;
+}
+
+body input{
+	color:#6e6e6e;
+}
+
+.jdCroak input{
+	max-width:200px;
+	float:left;
+	margin-right:10px;
+}
+
+.jdCroak #form{
+	float:left;
+	margin: 10px 10px 10px 10px;
+}
+
+.content input{
+	float:right;
+}
+
+#registerForm{
+	background-color:transparent !important;
+}
+
+#jdRegister input[type=submit]{
+	color: white;
+	background-color: #286090;
+	border-color: #204d74;
+	display: inline-block;
+	margin-bottom: 0;
+	font-weight: 400;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	-ms-touch-action: manipulation;
+	touch-action: manipulation;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	background-image: none;
+	border: 1px solid transparent;
+	border-radius: 4px;
+}
+
+.content #register, #post{
+	color: #fff;
+	background-color: #337ab7;
+	border-color: #2e6da4;
+	display: inline-block;
+	padding: 6px 12px;
+	margin-bottom: 0;
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 1.42857143;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	-ms-touch-action: manipulation;
+	touch-action: manipulation;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	background-image: none;
+	border: 1px solid transparent;
+	border-radius: 4px;
+}
+
+/* Navigation styles */
+.jdNavlink{
+	float:none;
+}
+
+.navbar.navbar-default .container-fluid{
+	background-color: white;
+	width: 100%;
+	float:left;
+}
+
+.jdNavLogo{
+	margin-top:10px;
+	width:200px;
+}
+
+.nav.navbar-nav.navbar-right{
+	margin-top:10px;
+}
+
+.navbar-form.navbar-left input[type=submit]{
+	color: white;
+	background-color: #286090;
+	border-color: #204d74;
+	display: inline-block;
+	margin-bottom: 0;
+	font-weight: 400;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	-ms-touch-action: manipulation;
+	touch-action: manipulation;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	background-image: none;
+	border: 1px solid transparent;
+	border-radius: 4px;
+}
+
+
+
+/* style tapestry searchbar autocomplete*/
+.t-autocomplete-menu ul{
+	background-color:white !important;
+	border:1px solid black !important;
+}
+
+.t-autocomplete-menu ul li{
+	color:#6e6e6e !important;
+}
+
