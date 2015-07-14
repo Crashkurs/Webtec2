@@ -1,16 +1,16 @@
 package tu.dortmund.de.webtec2.entities;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
+import java.util.TimeZone;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 
-import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.beaneditor.Validate;
 
 @Entity
@@ -63,8 +63,14 @@ public class Notification {
 	}
 	
 	public String getTimeStr() {
+		Calendar c = Calendar.getInstance(TimeZone.getTimeZone("Europe/Berlin"));
+		int currentYear = c.get(Calendar.YEAR);
+		int currentDay = c.get(Calendar.DAY_OF_YEAR);
+		c.setTime(time);
+		int croakYear = c.get(Calendar.YEAR);
+		int croakDay = c.get(Calendar.DAY_OF_YEAR);
 		String format = "yyyy-MM-dd hh:mm";
-		if(new Date().getDay() == time.getDay()) {
+		if(currentYear == croakYear && currentDay == croakDay) {
 			format = "hh:mm";
 		}
 		return new SimpleDateFormat(format).format(time);

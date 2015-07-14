@@ -30,7 +30,6 @@ public class TestService {
 	private void initializeAdminAccount() {
 		try{
 			Session session = hibernateSessionManager.getSession();
-			Date time = new Date();
 			
 			User admin = registerCtrl.createNewUser("admin", "admin", "admin");
 			admin.getRoles().add("admin");
