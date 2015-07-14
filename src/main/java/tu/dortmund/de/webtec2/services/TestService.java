@@ -40,7 +40,7 @@ public class TestService {
 			User mats = registerCtrl.createNewUser("Mats", "Mats", "Mats");
 			User lorenzo = registerCtrl.createNewUser("Lorenzo", "Lorenzo", "Lorenzo");
 			User dominik = registerCtrl.createNewUser("Dominik", "Dominik", "Dominik");
-			User jörn = registerCtrl.createNewUser("Jörn", "Jörn", "Jörn");
+			User jÃ¶rn = registerCtrl.createNewUser("JÃ¶rn", "JÃ¶rn", "JÃ¶rn");
 			
 			admin.addFollower(paul);
 			paul.getFollowing().add(admin);
@@ -63,8 +63,8 @@ public class TestService {
 			mats.addFollower(lorenzo);
 			lorenzo.getFollowing().add(mats);
 			
-			mats.addFollower(jörn);
-			jörn.getFollowing().add(mats);
+			mats.addFollower(jÃ¶rn);
+			jÃ¶rn.getFollowing().add(mats);
 			
 			mats.addFollower(dominik);
 			dominik.getFollowing().add(mats);
@@ -75,8 +75,8 @@ public class TestService {
 			dominik.addFollower(mats);
 			mats.getFollowing().add(dominik);
 			
-			jörn.addFollower(mats);
-			mats.getFollowing().add(jörn);
+			jÃ¶rn.addFollower(mats);
+			mats.getFollowing().add(jÃ¶rn);
 			
 			jan.addFollower(lorenzo);
 			lorenzo.getFollowing().add(jan);
@@ -84,25 +84,25 @@ public class TestService {
 			dominik.addFollower(lorenzo);
 			lorenzo.getFollowing().add(dominik);
 			
-			jörn.addFollower(lorenzo);
-			lorenzo.getFollowing().add(jörn);
+			jÃ¶rn.addFollower(lorenzo);
+			lorenzo.getFollowing().add(jÃ¶rn);
 			
-			jörn.addFollower(dominik);
-			dominik.getFollowing().add(jörn);
+			jÃ¶rn.addFollower(dominik);
+			dominik.getFollowing().add(jÃ¶rn);
 			
 			Croak croak1 = new Croak(admin, "Erster Croak vom Admin", new Date());
 			Croak croak2 = new Croak(lorenzo, "Hey Leute! Hab jetzt auch Croaky :)", new Date());
-			Croak croak3 = new Croak(jörn, "Layout hab ich fertig, wie findet ihrs so?", new Date());
+			Croak croak3 = new Croak(jÃ¶rn, "Layout hab ich fertig, wie findet ihrs so?", new Date());
 			Croak croak4 = new Croak(dominik, "Schaut mal bei meinem Profil vorbei!", new Date());
 			Croak croak5 = new Croak(mats, "Hab heut verschlafen, was habt ihr alle so gemacht?", new Date());
-			Croak croak6 = new Croak(paul, "Fahren jetzt zum Froschloch, will sich noch wer anschließen?", new Date());
+			Croak croak6 = new Croak(paul, "Fahren jetzt zum Froschloch, will sich noch wer anschlieï¿½en?", new Date());
 			Croak croak7 = new Croak(dieter, "Froschloch klingt gut, komme mit!", new Date());
 			
 			Notification note1 = new Notification(admin.getName(), new Date());
 			Notification note2 = new Notification(dominik.getName(), new Date());
 			
 			jan.getNotifications().add(note1);
-			jörn.getNotifications().add(note2);
+			jÃ¶rn.getNotifications().add(note2);
 			
 			session.persist(admin);
 			session.persist(paul);
@@ -111,7 +111,7 @@ public class TestService {
 			session.persist(mats);
 			session.persist(lorenzo);
 			session.persist(dominik);
-			session.persist(jörn);
+			session.persist(jÃ¶rn);
 			
 			session.persist(croak1);
 			session.persist(croak2);
